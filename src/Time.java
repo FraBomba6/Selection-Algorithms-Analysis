@@ -32,7 +32,7 @@ public class Time {
             ex.printStackTrace();
         }
     }
-
+     //Giovanni Rana
     public static long getResolution() {
         long start, end;
         start = System.nanoTime();
