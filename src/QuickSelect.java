@@ -9,34 +9,45 @@ public class QuickSelect {
         System.out.print("Enter an integer: ");
         int k = input.nextInt();
 
-        System.out.print(quickSelect(V, 0, V.length - 1, --k));
-    }
-    public static int quickSelect(int[] V, int l, int r, int k) {
-        int mid = partition(V, l, r);
-        if (k == mid) {
-            return V[k];
-        }
-        else if(k < mid)
-            return quickSelect(V, l, mid - 1, k);
-        else
-            return quickSelect(V, mid + 1, r, k);
+        System.out.print(quickSelect(array, 0, array.length - 1, --k));
     }
 
-    public static int partition(int[] V, int l, int r) {
-        int pivot = V[r];
+    static int[] getInputVector(String inputLine){
+        String els[] = inputLine.split("\\s+");
+        int length = els.length;
+        int[] output = new int[length];
+        for (int i = 0; i < length; i++) {
+            output[i] = Integer.parseInt(els[i]);
+        }
+        return output;
+    }
+
+    public static int quickSelect(int[] array, int l, int r, int k) {
+        int mid = partition(array, l, r);
+        if (k == mid) {
+            return array[k];
+        }
+        else if(k < mid)
+            return quickSelect(array, l, mid - 1, k);
+        else
+            return quickSelect(array, mid + 1, r, k);
+    }
+
+    public static int partition(int[] array, int l, int r) {
+        int pivot = array[r];
         int i = l - 1;
         int tmp;
 
         for(int j = l; j < r; j++)
-            if(V[j] < pivot) {
-                tmp = V[++i];
-                V[i] = V[j];
-                V[j] = tmp;
+            if(array[j] < pivot) {
+                tmp = array[++i];
+                array[i] = array[j];
+                array[j] = tmp;
             }
 
-        tmp = V[++i];
-        V[i] = V[r];
-        V[r] = tmp;
+        tmp = array[++i];
+        array[i] = array[r];
+        array[r] = tmp;
 
         return i;
     }
