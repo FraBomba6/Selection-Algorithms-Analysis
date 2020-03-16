@@ -19,18 +19,31 @@ class Pair {
         this.position = position;
     }
 
+    /**
+     * getter for key
+     */
     public Integer getKey() {
         return key;
     }
 
+    /**
+     * setter for key
+     */
     public void setKey(Integer key) {
         this.key = key;
     }
 
+
+    /**
+     * getter for position
+     */
     public Integer getPosition() {
         return position;
     }
 
+    /**
+     * setter for position
+     */
     public void setPosition(Integer position) {
         this.position = position;
     }
@@ -71,6 +84,13 @@ public class HeapSelect {
         return output;
     }
 
+
+    /**
+     * Selects k-th element in a vector with O(n logn) time complexity
+     * @param h1 first vector of Pairs. REQUIRED not empty
+     * @param h2 second vector of Pairs. REQUIRED not empty
+     * @param k index for the selected element
+     */
     public static void heapSelect(Vector<Pair> h1, Vector<Pair> h2, int k){
         Pair root = h1.get(0);
         root.setPosition(0);
@@ -94,17 +114,32 @@ public class HeapSelect {
         }
     }
 
+    /**
+     * USELESS
+     */
     public static void setPositions(Vector<Pair> V) {
         int pos = 0;
         for(Pair pair : V)
             pair.setPosition(pos++);
     }
 
+
+    /**
+     * Given a vector of pairs, builds a minHeap
+     * @param V the vector of pairs
+     */
     public static void buildHeap(Vector<Pair> V) {
         for(int i = V.size()/2 - 1; i >= 0; i--)
             minHeapify(V, V.size(), i);
     }
 
+
+    /**
+     * minHeapify algorithm with O(n logn) time complexity
+     * @param V the vector of pairs that will be turned into a minHeap
+     * @param n size of the vector V. REQUIRED as a minHeap
+     * @param i starting index for the algorithm. REQUIRED 0 <= i< vector length
+     */
     public static void minHeapify(Vector<Pair> V, int n, int i) {
         int smallest = i;
         int l = 2*i + 1;
@@ -120,11 +155,22 @@ public class HeapSelect {
         }
     }
 
+
+    /**
+     * Adds an element inside the vector making sure to keep the minHeap valid
+     * @param V the minHeap vector
+     * @param pair the new Pair that will be added to the minHeap
+     */
     public static void insert(Vector<Pair> V, Pair pair) {
         V.add(pair);
         buildHeap(V);
     }
 
+
+    /**
+     * Extracts the upper element from the vector making sure to keep the minHeap valid
+     * @param V the minHeap vector. REQUIRED as a minHeap
+     */
     public static void extract(Vector<Pair> V) {
         Collections.swap(V, 0, V.size() - 1);
         V.remove(V.size() - 1);
