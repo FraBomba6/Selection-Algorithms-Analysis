@@ -49,7 +49,7 @@ public class HeapSelect {
         System.out.println(h2.get(0).getKey());
     }
 
-    static int[] getInputVector(String inputLine){
+    static int[] getInputVector(String inputLine) {
         String els[] = inputLine.split("\\s+");
         int length = els.length;
         int[] output = new int[length];
@@ -57,6 +57,7 @@ public class HeapSelect {
             output[i] = Integer.parseInt(els[i]);
         }
         return output;
+    }
 
     public static void heapSelect(Vector<Pair> h1, Vector<Pair> h2, int k){
         Pair root = h1.get(0);
