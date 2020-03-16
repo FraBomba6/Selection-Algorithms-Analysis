@@ -1,7 +1,7 @@
 public class MedianSelect {
     public static void main(String[] args) {
         int[] V = {89, 86, 61, 33, 4, 83, 84, 31, 57, 19, 27, 70, 11}; //4 11 19 27 31 33 57 61 70 83 84 86 89
-        //System.out.print(V[MedianOfMedians(V, 0, V.length - 1, false)] + "\n");
+        System.out.print(V[MedianOfMedians(V, 0, V.length - 1, false)] + "\n");
     }
 
     //MedianOfMedians(int[] V, int l, int r)

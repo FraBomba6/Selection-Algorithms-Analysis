@@ -1,4 +1,4 @@
-import org.apache.poi.EncryptedDocumentException;
+/*import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -60,3 +60,4 @@ public class Time {
         return (end - start)/count;
     }
 }
+*/
