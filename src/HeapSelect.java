@@ -1,3 +1,4 @@
+import java.util.Scanner;
 import java.util.Vector;
 import java.util.Collections;
 
@@ -29,10 +30,15 @@ class Pair {
 
 public class HeapSelect {
     public static void main(String[] args) {
-        int[] array = {89, 86, 61, 33, 4, 83, 84, 31, 57, 19};
-        int k = 5;
 
-        Vector<Pair> h1 = new Vector<Pair>(10); //4 19 61 31 86 83 84 33 57 89
+        System.out.print("Enter an array of integers: ");
+        Scanner input = new Scanner(System.in);
+        String inVector = input.nextLine();
+        int[] array = getInputVector(inVector);
+        System.out.print("Enter an integer");
+        int k = input.nextInt();
+
+        Vector<Pair> h1 = new Vector<Pair>(10);
         for (int i: array)
             h1.add(new Pair(i, null));
         buildHeap(h1);
@@ -42,6 +48,15 @@ public class HeapSelect {
 
         System.out.println(h2.get(0).getKey());
     }
+
+    static int[] getInputVector(String inputLine){
+        String els[] = inputLine.split("\\s+");
+        int length = els.length;
+        int[] output = new int[length];
+        for (int i = 0; i < length; i++) {
+            output[i] = Integer.parseInt(els[i]);
+        }
+        return output;
 
     public static void heapSelect(Vector<Pair> h1, Vector<Pair> h2, int k){
         Pair root = h1.get(0);
