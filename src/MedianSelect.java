@@ -8,9 +8,8 @@ public class MedianSelect {
         int[] array = getInputVector(inVector);
         System.out.print("Enter an integer: ");
         int k = input.nextInt();
-        k--;
 
-        System.out.print(array[MedianOfMedians(array, 0, array.length - 1, false, k)] + "\n");
+        System.out.print(array[MedianOfMedians(array, 0, array.length - 1, false, --k)] + "\n");
     }
 
     /**
