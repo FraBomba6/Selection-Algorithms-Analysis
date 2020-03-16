@@ -94,12 +94,6 @@ public class HeapSelect {
         }
     }
 
-    public static void setPositions(Vector<Pair> V) {
-        int pos = 0;
-        for(Pair pair : V)
-            pair.setPosition(pos++);
-    }
-
     public static void buildHeap(Vector<Pair> V) {
         for(int i = V.size()/2 - 1; i >= 0; i--)
             minHeapify(V, V.size(), i);
