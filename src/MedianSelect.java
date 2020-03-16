@@ -99,7 +99,7 @@ public class MedianSelect {
 
 
     /**
-     * Partitions the array according to the given index
+     * Provides a partitioning index according to the given indexes
      * @param array the array that will be partitioned.  REQUIRED not empty
      * @param l left index. REQUIRED 0<=l<array length
      * @param r right index. REQUIRED 0<=r<array length
