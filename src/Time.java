@@ -1,16 +1,12 @@
-/*import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class Time {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         try {
             FileInputStream inputStream = new FileInputStream(new File("Time.xlsx"));
             Workbook workbook = WorkbookFactory.create(inputStream);
@@ -60,4 +56,3 @@ public class Time {
         return (end - start)/count;
     }
 }
-*/
