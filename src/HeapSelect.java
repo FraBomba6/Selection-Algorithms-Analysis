@@ -35,7 +35,7 @@ public class HeapSelect {
         Scanner input = new Scanner(System.in);
         String inVector = input.nextLine();
         int[] array = getInputVector(inVector);
-        System.out.print("Enter an integer");
+        System.out.print("Enter an integer: ");
         int k = input.nextInt();
 
         Vector<Pair> h1 = new Vector<Pair>(10);

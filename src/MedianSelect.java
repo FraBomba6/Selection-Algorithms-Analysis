@@ -1,14 +1,17 @@
+import java.util.Scanner;
+
 public class MedianSelect {
     public static void main(String[] args) {
-        int[] V = {89, 86, 61, 33, 4, 83, 84, 31, 57, 19, 27, 70, 11}; //4 11 19 27 31 33 57 61 70 83 84 86 89
+        System.out.print("Enter an array of integers: ");
+        Scanner input = new Scanner(System.in);
+        String inVector = input.nextLine();
+        int[] array = getInputVector(inVector);
+        System.out.print("Enter an integer: ");
+        int k = input.nextInt();
+
         System.out.print(V[MedianOfMedians(V, 0, V.length - 1, false)] + "\n");
     }
 
-    //MedianOfMedians(int[] V, int l, int r)
-    //  1) InsertionSort su ogni "sotto-vettore" di 5 elementi
-    //  2) Stabilire le mediane di ogni "sotto-vettore"
-    //  3) Ordinare in-place le mediane e trovarne la mediana con MedianOfMedians
-    //  4) Utilizzare la mediana trovata come pivot per partizionare il vettore
     public static int MedianOfMedians(int[] V, int l, int r, boolean p) {
         int k = 3;
         int i = l;
