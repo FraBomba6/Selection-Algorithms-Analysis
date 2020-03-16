@@ -2,16 +2,24 @@ import java.util.Scanner;
 import java.util.Vector;
 import java.util.Collections;
 
+/**
+ * Defines pair object
+ */
 class Pair {
     Integer key;
     Integer position;
 
+    /**
+     * Constructor for a pair
+     * @param key REQUIRED Not null
+     * @param position REQUIRED not null
+     */
     Pair(Integer key, Integer position) {
         this.key = key;
         this.position = position;
     }
 
-    public Integer  getKey() {
+    public Integer getKey() {
         return key;
     }
 
@@ -30,7 +38,6 @@ class Pair {
 
 public class HeapSelect {
     public static void main(String[] args) {
-
         System.out.print("Enter an array of integers: ");
         Scanner input = new Scanner(System.in);
         String inVector = input.nextLine();
@@ -49,6 +56,11 @@ public class HeapSelect {
         System.out.println(h2.get(0).getKey());
     }
 
+    /**
+     * Splits the input line in all the different values
+     * @param inputLine required as a string of ints divided by one (or more) blank spaces
+     * @return an int array containing all the ints from the input
+     */
     static int[] getInputVector(String inputLine) {
         String els[] = inputLine.split("\\s+");
         int length = els.length;
