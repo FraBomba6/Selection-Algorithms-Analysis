@@ -40,7 +40,7 @@ public class MedianSelect {
     public static int MedianOfMedians(int[] array, int l, int r, boolean p, int k) {
         int i = l;
         int last5 = r - (r - l) % 5;
-        while(i < r) {
+        while(i < r) { //O(n)
             InsertionSort(array, i, i == last5 ? (i+=(r-l)%5 + 1) : (i+=5));
         }
 

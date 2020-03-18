@@ -3,7 +3,7 @@ import org.apache.commons.math3.random.MersenneTwister;
 import java.security.SecureRandom;
 
 public class RandomTest {
-    public static void main(String[] args) {
+    public static int[] randomInput() {
         MersenneTwister mt = new MersenneTwister(generateSeed());
         int targetSize = 50;
         int[] array = new int[targetSize];
@@ -11,7 +11,7 @@ public class RandomTest {
         while(i < targetSize) {
             array[i++] = mt.nextInt();
         }
-        System.out.print("Done!");
+        return array;
     }
 
     static int[] generateSeed() {
