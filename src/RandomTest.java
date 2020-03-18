@@ -21,4 +21,11 @@ public class RandomTest {
             intSeed[i] = byteSeed[i];
         return intSeed;
     }
+
+    static int getK(){
+        int min = 0;
+        int max = 49;
+        int k = min + (int)(Math.random() * (max - min + 1));
+        return k;
+    }
 }
