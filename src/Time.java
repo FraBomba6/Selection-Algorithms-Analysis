@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Vector;
 
 public class Time {
     public static void main(String[] args) {
@@ -12,7 +13,6 @@ public class Time {
             FileInputStream inputStream = new FileInputStream(new File("Time.xlsx"));
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = workbook.getSheetAt(0);
-
 
             //Fills the excel sheet
             for(int row_index=1; row_index<102; row_index++){
@@ -63,6 +63,7 @@ public class Time {
     public static long getExTimeHeapSelect() {
         long start, end;
         int count = 0;
+
         start = System.nanoTime();
         do {
             HeapSelect.main(new String[0]);
@@ -78,12 +79,12 @@ public class Time {
      * Computates execution time for median of medians selection algorithm
      * @return the execution time as a long value
      */
-    public static long getExTimeMedianSelect() {
+    public static long getExTimeMedianSelect(int[] array, int k) {
         long start, end;
         int count = 0;
         start = System.nanoTime();
         do {
-            MedianSelect.main(new String[0]);
+            MedianSelect.MedianOfMedians(array, 0, array.length - 1, false, k);;
             end = System.nanoTime();
             count++;
         } while(end - start <= 20100);
