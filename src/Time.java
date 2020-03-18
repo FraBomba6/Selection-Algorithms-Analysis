@@ -14,7 +14,7 @@ public class Time {
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = workbook.getSheetAt(0);
 
-            int targetSize = 50;
+            int targetSize = 100;
             int[] input;
             int k;
             //Fills the excel sheet
