@@ -50,6 +50,7 @@ class Pair {
 }
 
 public class HeapSelect {
+    /*
     public static void main(String[] args) {
         System.out.print("Enter an array of integers: ");
         Scanner input = new Scanner(System.in);
@@ -67,6 +68,17 @@ public class HeapSelect {
         heapSelect(h1, h2, k);
 
         System.out.println(h2.get(0).getKey());
+    }
+    */
+
+    static void runHeapSelect(int[] array, int k) {
+        Vector<Pair> h1 = new Vector<Pair>(10);
+        for (int i: array)
+            h1.add(new Pair(i, null));
+        buildHeap(h1);
+        Vector<Pair> h2 = new Vector<Pair>(h1.capacity());
+
+        heapSelect(h1, h2, k);
     }
 
     /**
