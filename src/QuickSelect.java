@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class QuickSelect {
+    /*
     public static void main(String[] args) {
         System.out.print("Enter an array of integers: ");
         Scanner input = new Scanner(System.in);
@@ -11,13 +12,13 @@ public class QuickSelect {
 
         System.out.print(quickSelect(array, 0, array.length - 1, --k));
     }
-
-
+    */
     /**
      * Splits the input line in all the different values
      * @param inputLine required as a string of ints divided by one (or more) blank spaces
      * @return an int array containing all the ints from the input
      */
+    /*
     static int[] getInputVector(String inputLine){
         String els[] = inputLine.split("\\s+");
         int length = els.length;
@@ -27,6 +28,7 @@ public class QuickSelect {
         }
         return output;
     }
+    */
 
 
     /**
