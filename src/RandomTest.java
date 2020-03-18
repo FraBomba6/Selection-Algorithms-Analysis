@@ -3,9 +3,8 @@ import org.apache.commons.math3.random.MersenneTwister;
 import java.security.SecureRandom;
 
 public class RandomTest {
-    public static int[] randomInput() {
+    public static int[] randomInput(int targetSize) {
         MersenneTwister mt = new MersenneTwister(generateSeed());
-        int targetSize = 50;
         int[] array = new int[targetSize];
         int i = 0;
         while(i < targetSize) {
@@ -22,10 +21,9 @@ public class RandomTest {
         return intSeed;
     }
 
-    static int getK(){
+    static int getK(int max){
         int min = 0;
-        int max = 49;
-        int k = min + (int)(Math.random() * (max - min + 1));
+        int k = min + (int)(Math.random() * (max - min));
         return k;
     }
 }

@@ -14,13 +14,14 @@ public class Time {
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = workbook.getSheetAt(0);
 
+            int targetSize = 50;
             int[] input;
             int k;
             //Fills the excel sheet
             for(int row_index=1; row_index<102; row_index++){
 
-                input = RandomTest.randomInput();
-                k = RandomTest.getK();
+                input = RandomTest.randomInput(targetSize);
+                k = RandomTest.getK(targetSize);
                 //New line
                 Row row = sheet.createRow(row_index);
                 Cell cell = row.createCell(0);
