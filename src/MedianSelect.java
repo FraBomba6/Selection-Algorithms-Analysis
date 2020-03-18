@@ -39,7 +39,7 @@ public class MedianSelect {
      */
     public static int MedianOfMedians(int[] array, int l, int r, boolean p, int k) {
         int i = l;
-        int last5 = (r - l) - (r - l) % 5 + l;
+        int last5 = r - (r - l) % 5;
         while(i < r) {
             InsertionSort(array, i, i == last5 ? (i+=(r-l)%5 + 1) : (i+=5));
         }
@@ -64,17 +64,19 @@ public class MedianSelect {
         }
 
         int pivot = MedianOfMedians(array, l, (r - l)/5 + l, true, k);
-        pivot = partition(array, pivot, r);
+        if(!p){
+            pivot = partition(array, pivot, r);
 
-        if(pivot == k) {
-            return pivot;
-        }
-        else if (k < pivot) {
-            return MedianOfMedians(array, l, pivot - 1, false, k);
-        }
-        else {
-            return MedianOfMedians(array, pivot + 1, r, false, k);
-        }
+            if(pivot == k) {
+                return pivot;
+            }
+            else if (k < pivot) {
+                return MedianOfMedians(array, l, pivot - 1, false, k);
+            }
+            else {
+                return MedianOfMedians(array, pivot + 1, r, false, k);
+            }
+        } else return pivot;
     }
 
 
@@ -108,11 +110,9 @@ public class MedianSelect {
         int pivot = array[l];
         int i = l + 1;
 
-        for(int j = i; j <= r; j++) {
-            if (array[j] < pivot) {
+        for(int j = i; j <= r; j++)
+            if (array[j] < pivot)
                 swap(array, i++, j);
-            }
-        }
         swap(array, --i, l);
 
         return i;
