@@ -60,13 +60,17 @@ public class Time {
      * Computates execution time for minHeap selection algorithm
      * @return the execution time as a long value
      */
-    public static long getExTimeHeapSelect() {
+    public static long getExTimeHeapSelect(int[] array, int k) {
         long start, end;
         int count = 0;
-
+        Vector<Pair> h1 = new Vector<Pair>(10);
+        for (int i: array)
+            h1.add(new Pair(i, null));
+        HeapSelect.buildHeap(h1);
+        Vector<Pair> h2 = new Vector<Pair>(h1.capacity());
         start = System.nanoTime();
         do {
-            HeapSelect.main(new String[0]);
+            HeapSelect.heapSelect(h1, h2, k);
             end = System.nanoTime();
             count++;
         } while(end - start <= 20100);
@@ -97,12 +101,12 @@ public class Time {
      * Computates execution time for quick select algorithm
      * @return the execution time as a long value
      */
-    public static long getExTimeQuickSelect() {
+    public static long getExTimeQuickSelect(int[] array, int k) {
         long start, end;
         int count = 0;
         start = System.nanoTime();
         do {
-            QuickSelect.main(new String[0]);
+            QuickSelect.quickSelect(array, 0, array.length - 1, k);
             end = System.nanoTime();
             count++;
         } while(end - start <= 20100);

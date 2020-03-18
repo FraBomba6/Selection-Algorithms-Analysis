@@ -14,10 +14,6 @@ public class MedianSelect {
     }
     */
 
-    static void runMedianSelect(int[] array, int k) {
-        MedianOfMedians(array, 0, array.length - 1, false, k);
-    }
-
     /**
      * Splits the input line in all the different values
      * @param inputLine required as a string of ints divided by one (or more) blank spaces

@@ -71,16 +71,6 @@ public class HeapSelect {
     }
     */
 
-    static void runHeapSelect(int[] array, int k) {
-        Vector<Pair> h1 = new Vector<Pair>(10);
-        for (int i: array)
-            h1.add(new Pair(i, null));
-        buildHeap(h1);
-        Vector<Pair> h2 = new Vector<Pair>(h1.capacity());
-
-        heapSelect(h1, h2, k);
-    }
-
     /**
      * Splits the input line in all the different values
      * @param inputLine required as a string of ints divided by one (or more) blank spaces
