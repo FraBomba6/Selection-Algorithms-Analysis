@@ -8,22 +8,31 @@ import java.io.IOException;
 public class Time {
     public static void main(String[] args) {
         try {
+            //Initializing a new excel file and sheet in which data will be registered
             FileInputStream inputStream = new FileInputStream(new File("Time.xlsx"));
             Workbook workbook = WorkbookFactory.create(inputStream);
-
             Sheet sheet = workbook.getSheetAt(0);
 
-            int i = 1;
-            while(i < 101) {
-                Row row = sheet.createRow(i++);
+
+            //Fills the excel sheet
+            for(int row_index=1; row_index<102; row_index++){
+                //New line
+                Row row = sheet.createRow(row_index);
                 Cell cell = row.createCell(0);
-                cell.setCellValue(getResolution());
+                //Executes heap select
+                cell.setCellValue(getExTimeHeapSelect());
                 cell = row.createCell(1);
-                cell.setCellValue(getExTime());
+                //Executes Quick select
+                cell.setCellValue(getExTimeQuickSelect());
+                cell = row.createCell(2);
+                //Executes Median of Medians select
+                cell.setCellValue(getExTimeMedianSelect());
             }
+            //terminates after filling the sheet with 100 time execution's observations for each algorithm
 
             inputStream.close();
 
+            //saves the excel file created before
             FileOutputStream outputStream = new FileOutputStream("Time.xlsx");
             workbook.write(outputStream);
             workbook.close();
@@ -32,7 +41,11 @@ public class Time {
             ex.printStackTrace();
         }
     }
-     //Giovanni Rana
+
+    /**
+     * Computates the resolution error from the executin machine
+     * @return the error as a long value
+     */
     public static long getResolution() {
         long start, end;
         start = System.nanoTime();
@@ -43,7 +56,29 @@ public class Time {
         return end - start;
     }
 
-    public static long getExTime() {
+    /**
+     * Computates execution time for minHeap selection algorithm
+     * @return the execution time as a long value
+     */
+    public static long getExTimeHeapSelect() {
+        long start, end;
+        int count = 0;
+        start = System.nanoTime();
+        do {
+            HeapSelect.main(new String[0]);
+            end = System.nanoTime();
+            count++;
+        } while(end - start <= 20100);
+
+        return (end - start)/count;
+    }
+
+
+    /**
+     * Computates execution time for median of medians selection algorithm
+     * @return the execution time as a long value
+     */
+    public static long getExTimeMedianSelect() {
         long start, end;
         int count = 0;
         start = System.nanoTime();
@@ -55,4 +90,35 @@ public class Time {
 
         return (end - start)/count;
     }
+
+
+    /**
+     * Computates execution time for quick select algorithm
+     * @return the execution time as a long value
+     */
+    public static long getExTimeQuickSelect() {
+        long start, end;
+        int count = 0;
+        start = System.nanoTime();
+        do {
+            QuickSelect.main(new String[0]);
+            end = System.nanoTime();
+            count++;
+        } while(end - start <= 20100);
+
+        return (end - start)/count;
+    }
+
+
 }
+
+            /*
+            int i = 1;
+            while(i < 101) {
+                Row row = sheet.createRow(i++);
+                Cell cell = row.createCell(0);
+                cell.setCellValue(getResolution());
+                cell = row.createCell(1);
+                cell.setCellValue(getExTime());
+            }
+            */
