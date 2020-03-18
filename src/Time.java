@@ -108,17 +108,4 @@ public class Time {
 
         return (end - start)/count;
     }
-
-
 }
-
-            /*
-            int i = 1;
-            while(i < 101) {
-                Row row = sheet.createRow(i++);
-                Cell cell = row.createCell(0);
-                cell.setCellValue(getResolution());
-                cell = row.createCell(1);
-                cell.setCellValue(getExTime());
-            }
-            */

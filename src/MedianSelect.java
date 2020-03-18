@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class MedianSelect {
+    /*
     public static void main(String[] args) {
         System.out.print("Enter an array of integers: ");
         Scanner input = new Scanner(System.in);
@@ -10,6 +11,11 @@ public class MedianSelect {
         int k = input.nextInt();
 
         System.out.print(array[MedianOfMedians(array, 0, array.length - 1, false, --k)] + "\n");
+    }
+    */
+
+    static void runMedianSelect(int[] array, int k) {
+        MedianOfMedians(array, 0, array.length - 1, false, k);
     }
 
     /**
