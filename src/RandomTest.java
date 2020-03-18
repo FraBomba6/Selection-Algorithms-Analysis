@@ -1,7 +1,7 @@
 import org.apache.commons.math3.random.MersenneTwister;
 
 import java.security.SecureRandom;
-
+//prova
 public class RandomTest {
     public static int[] randomInput(int targetSize) {
         MersenneTwister mt = new MersenneTwister(generateSeed());
