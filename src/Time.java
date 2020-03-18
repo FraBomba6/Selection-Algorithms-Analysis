@@ -14,11 +14,11 @@ public class Time {
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = workbook.getSheetAt(0);
 
-            int targetSize = 100;
+            int targetSize = 500;
             int[] input;
             int k;
             //Fills the excel sheet
-            for(int row_index=1; row_index<102; row_index++){
+            for(int row_index=1; row_index<152; row_index++){
 
                 input = RandomTest.randomInput(targetSize);
                 k = RandomTest.getK(targetSize);
