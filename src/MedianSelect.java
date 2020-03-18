@@ -64,9 +64,9 @@ public class MedianSelect {
         }
 
         int pivot = MedianOfMedians(array, l, (r - l)/5 + l, true, k);
+
         if(!p){
             pivot = partition(array, pivot, r);
-
             if(pivot == k) {
                 return pivot;
             }
