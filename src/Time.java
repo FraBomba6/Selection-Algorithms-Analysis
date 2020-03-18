@@ -14,19 +14,24 @@ public class Time {
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = workbook.getSheetAt(0);
 
+            int[] input;
+            int k;
             //Fills the excel sheet
             for(int row_index=1; row_index<102; row_index++){
+
+                input = RandomTest.randomInput();
+                k = RandomTest.getK();
                 //New line
                 Row row = sheet.createRow(row_index);
                 Cell cell = row.createCell(0);
                 //Executes heap select
-                cell.setCellValue(getExTimeHeapSelect());
+                cell.setCellValue(getExTimeHeapSelect(input,k));
                 cell = row.createCell(1);
                 //Executes Quick select
-                cell.setCellValue(getExTimeQuickSelect());
+                cell.setCellValue(getExTimeQuickSelect(input,k));
                 cell = row.createCell(2);
                 //Executes Median of Medians select
-                cell.setCellValue(getExTimeMedianSelect());
+                cell.setCellValue(getExTimeMedianSelect(input,k));
             }
             //terminates after filling the sheet with 100 time execution's observations for each algorithm
 
