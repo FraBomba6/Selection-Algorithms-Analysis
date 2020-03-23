@@ -14,9 +14,9 @@ public class Time {
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = workbook.getSheetAt(0);
 
-            int targetSize = 10000;
+            int targetSize = 10;
             int[] input = RandomTest.randomInput(targetSize);
-            int k = RandomTest.getK(targetSize);
+            int k = 3;//RandomTest.getK(targetSize);
 
             //Fills the excel sheet
             for(int row_index=1; row_index<101; row_index++){
@@ -78,7 +78,7 @@ public class Time {
             HeapSelect.heapSelect(h1, h2, k);
             end = System.nanoTime();
             count++;
-        } while(end - start <= 20100);
+        } while(end - start <= 10100);
 
         return (end - start)/count;
     }
@@ -96,7 +96,7 @@ public class Time {
             MedianSelect.MedianOfMedians(array, 0, array.length - 1, false, k);;
             end = System.nanoTime();
             count++;
-        } while(end - start <= 20100);
+        } while(end - start <= 10100);
 
         return (end - start)/count;
     }
@@ -114,7 +114,7 @@ public class Time {
             QuickSelect.quickSelect(array, 0, array.length - 1, k);
             end = System.nanoTime();
             count++;
-        } while(end - start <= 20100);
+        } while(end - start <= 10100);
 
         return (end - start)/count;
     }

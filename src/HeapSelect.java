@@ -88,7 +88,7 @@ public class HeapSelect {
 
 
     /**
-     * Selects k-th element in a vector with O(n logn) time complexity
+     * Selects k-th element in a vector with O(n log n) time complexity
      * @param h1 first vector of Pairs. REQUIRED not empty
      * @param h2 second vector of Pairs. REQUIRED not empty
      * @param k index for the selected element
@@ -96,8 +96,8 @@ public class HeapSelect {
     public static void heapSelect(Vector<Pair> h1, Vector<Pair> h2, int k){
         Pair root = h1.get(0);
         root.setPosition(0);
-        insert(h2, root);
-        for(int i = 0; i < k - 1; i++) {
+        h2.add(root);
+        for(int i = 0; i < k - 1; i++) { //k volte
             root = h2.get(0);
             int rootPos = root.getPosition();
             int l = rootPos * 2 + 1;
@@ -105,12 +105,12 @@ public class HeapSelect {
             if(l < h1.size()) {
                 Pair left = h1.get(l);
                 left.setPosition(l);
-                insert(h2, left);
+                h2.add(left);
             }
             if(r < h1.size()){
                 Pair right = h1.get(r);
                 right.setPosition(r);
-                insert(h2, right);
+                h2.add(right);
             }
             extract(h2);
         }
@@ -137,7 +137,7 @@ public class HeapSelect {
 
 
     /**
-     * minHeapify algorithm with O(n logn) time complexity
+     * minHeapify algorithm with O(log n) time complexity
      * @param V the vector of pairs that will be turned into a minHeap
      * @param n size of the vector V. REQUIRED as a minHeap
      * @param i starting index for the algorithm. REQUIRED 0 <= i< vector length
@@ -176,6 +176,6 @@ public class HeapSelect {
     public static void extract(Vector<Pair> V) {
         Collections.swap(V, 0, V.size() - 1);
         V.remove(V.size() - 1);
-        buildHeap(V);
+        minHeapify(V, V.size(), 0);
     }
 }
