@@ -15,10 +15,9 @@ public class Time {
             Sheet sheet = workbook.getSheetAt(0);
 
             int targetSize = 10000;
-            int[] input;
-            int k;
-            input = RandomTest.randomInput(targetSize);
-            k = RandomTest.getK(targetSize);
+            int[] input = RandomTest.randomInput(targetSize);
+            int k = RandomTest.getK(targetSize);
+
             //Fills the excel sheet
             for(int row_index=1; row_index<101; row_index++){
                 System.out.println(row_index);
