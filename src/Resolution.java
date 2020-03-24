@@ -20,6 +20,4 @@ public class Resolution {
             System.out.println(i);
         }
     }
-
-
 }
