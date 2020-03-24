@@ -94,8 +94,11 @@ public class HeapSelect {/*
      * @param k index for the selected element
      */
     public static void heapSelect(Vector<Pair> h1, Vector<Pair> h2, int k){
+        Pair root = h1.get(0);
+        root.setPosition(0);
+        h2.add(root);
         for(int i = 0; i < k-1; i++) {
-            Pair root = h2.get(0);
+            root = h2.get(0);
             int rootPos = root.getPosition();
             int l = rootPos * 2 + 1;
             int r = rootPos * 2 + 2;
