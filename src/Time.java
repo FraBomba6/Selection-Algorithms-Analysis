@@ -20,9 +20,9 @@ public class Time {
             //Fills the excel sheet
             for (int i = 0; i < 5; i++) {
                 int k = RandomTest.getK(targetSize);
-                if(!(workbook.getSheetName(i).equals(String.valueOf(k)))) {
-                    workbook.setSheetName(i, String.valueOf(k));
-                }
+                System.out.print((int)Integer.parseInt(workbook.getSheetName(i))==k);
+                System.out.println();
+                workbook.setSheetName(i, String.valueOf(k));
                 Sheet sheet = workbook.getSheetAt(i);
                 for (int row_index = 1; row_index < 101; row_index++) {
                     //New line
