@@ -1,5 +1,6 @@
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellAddress;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,10 +21,11 @@ public class Time {
             //Fills the excel sheet
             for (int i = 0; i < 5; i++) {
                 int k = RandomTest.getK(targetSize);
-                System.out.print((int)Integer.parseInt(workbook.getSheetName(i))==k);
-                System.out.println();
-                workbook.setSheetName(i, String.valueOf(k));
                 Sheet sheet = workbook.getSheetAt(i);
+                sheet.setActiveCell(new CellAddress(0, 3));
+                Row kRow = sheet.getRow(0);
+                Cell kCell = kRow.getCell(3);
+                kCell.setCellValue(k);
                 for (int row_index = 1; row_index < 101; row_index++) {
                     //New line
                     Row row = sheet.createRow(row_index);
@@ -37,7 +39,7 @@ public class Time {
                     //Executes Median of Medians select
                     cell.setCellValue(getExTimeMedianSelect(input, k));
 
-                    System.out.print("\rSheet "+k+" "+row_index+"%");
+                    System.out.print("\rSheet "+(i+1)+" "+row_index+"%");
                 }
                 System.out.println();
             }
