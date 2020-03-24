@@ -94,7 +94,7 @@ public class HeapSelect {/*
      * @param k index for the selected element
      */
     public static void heapSelect(Vector<Pair> h1, Vector<Pair> h2, int k){
-        for(int i = 0; i < k-1; i++) { //k volte
+        for(int i = 0; i < k-1; i++) {
             Pair root = h2.get(0);
             int rootPos = root.getPosition();
             int l = rootPos * 2 + 1;
@@ -168,10 +168,10 @@ public class HeapSelect {/*
             int parentPos = (i - 1) / 2;
             int parentKey = V.get(parentPos).getKey();
             int nodeKey = V.get(i).getKey();
-            while(i > 0 && nodeKey <= parentKey){
+            while(i > 0 && nodeKey < parentKey){
                 Collections.swap(V, i, parentPos);
                 i = parentPos;
-                parentPos = i / 2;
+                parentPos = (i - 1) / 2;
                 parentKey = V.get(parentPos).getKey();
                 nodeKey = V.get(i).getKey();
             }
