@@ -49,8 +49,7 @@ class Pair {
     }
 }
 
-public class HeapSelect {
-    /*
+public class HeapSelect {/*
     public static void main(String[] args) {
         System.out.print("Enter an array of integers: ");
         Scanner input = new Scanner(System.in);
@@ -64,12 +63,13 @@ public class HeapSelect {
             h1.add(new Pair(i, null));
         buildHeap(h1);
         Vector<Pair> h2 = new Vector<Pair>(h1.capacity());
-
+        Pair root = h1.get(0);
+        root.setPosition(0);
+        h2.add(root);
         heapSelect(h1, h2, k);
 
         System.out.println(h2.get(0).getKey());
-    }
-    */
+    }*/
 
     /**
      * Splits the input line in all the different values
@@ -94,36 +94,34 @@ public class HeapSelect {
      * @param k index for the selected element
      */
     public static void heapSelect(Vector<Pair> h1, Vector<Pair> h2, int k){
-        Pair root = h1.get(0);
-        root.setPosition(0);
-        h2.add(root);
-        for(int i = 0; i < k - 1; i++) { //k volte
-            root = h2.get(0);
+        for(int i = 0; i < k-1; i++) { //k volte
+            Pair root = h2.get(0);
             int rootPos = root.getPosition();
             int l = rootPos * 2 + 1;
             int r = rootPos * 2 + 2;
+            extract(h2);
             if(l < h1.size()) {
                 Pair left = h1.get(l);
                 left.setPosition(l);
-                h2.add(left);
+                insert(h2, left);
             }
             if(r < h1.size()){
                 Pair right = h1.get(r);
                 right.setPosition(r);
-                h2.add(right);
+                insert(h2, right);
             }
-            extract(h2);
         }
     }
 
     /**
      * USELESS
-     */
+     *
     public static void setPositions(Vector<Pair> V) {
         int pos = 0;
         for(Pair pair : V)
             pair.setPosition(pos++);
     }
+     */
 
 
     /**
@@ -132,17 +130,17 @@ public class HeapSelect {
      */
     public static void buildHeap(Vector<Pair> V) {
         for(int i = V.size()/2 - 1; i >= 0; i--)
-            minHeapify(V, V.size(), i);
+            minHeapify(V, i);
     }
 
 
     /**
      * minHeapify algorithm with O(log n) time complexity
      * @param V the vector of pairs that will be turned into a minHeap
-     * @param n size of the vector V. REQUIRED as a minHeap
      * @param i starting index for the algorithm. REQUIRED 0 <= i< vector length
      */
-    public static void minHeapify(Vector<Pair> V, int n, int i) {
+    public static void minHeapify(Vector<Pair> V, int i) {
+        int n = V.size();
         int smallest = i;
         int l = 2*i + 1;
         int r = 2*i + 2;
@@ -153,7 +151,7 @@ public class HeapSelect {
             smallest = r;
         if(smallest != i) {
             Collections.swap(V, i, smallest);
-            minHeapify(V, n, smallest);
+            minHeapify(V, smallest);
         }
     }
 
@@ -165,7 +163,19 @@ public class HeapSelect {
      */
     public static void insert(Vector<Pair> V, Pair pair) {
         V.add(pair);
-        buildHeap(V);
+        if(V.size() > 1) {
+            int i = V.size() - 1;
+            int parentPos = (i - 1) / 2;
+            int parentKey = V.get(parentPos).getKey();
+            int nodeKey = V.get(i).getKey();
+            while(i > 0 && nodeKey <= parentKey){
+                Collections.swap(V, i, parentPos);
+                i = parentPos;
+                parentPos = i / 2;
+                parentKey = V.get(parentPos).getKey();
+                nodeKey = V.get(i).getKey();
+            }
+        }
     }
 
 
@@ -176,6 +186,6 @@ public class HeapSelect {
     public static void extract(Vector<Pair> V) {
         Collections.swap(V, 0, V.size() - 1);
         V.remove(V.size() - 1);
-        minHeapify(V, V.size(), 0);
+        minHeapify(V, 0);
     }
 }

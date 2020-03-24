@@ -16,7 +16,7 @@ public class Time {
 
             int targetSize = 10;
             int[] input = RandomTest.randomInput(targetSize);
-            int k = 3;//RandomTest.getK(targetSize);
+            int k = 2;//RandomTest.getK(targetSize);
 
             //Fills the excel sheet
             for(int row_index=1; row_index<101; row_index++){
@@ -73,6 +73,9 @@ public class Time {
             h1.add(new Pair(i, null));
         HeapSelect.buildHeap(h1);
         Vector<Pair> h2 = new Vector<Pair>(h1.capacity());
+        Pair root = h1.get(0);
+        root.setPosition(0);
+        h2.add(root);
         start = System.nanoTime();
         do {
             HeapSelect.heapSelect(h1, h2, k);
