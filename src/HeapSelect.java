@@ -50,7 +50,7 @@ class Pair {
 }
 
 public class HeapSelect {
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         System.out.print("Enter an array of integers: ");
         Scanner input = new Scanner(System.in);
         String inVector = input.nextLine();
