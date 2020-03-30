@@ -49,8 +49,8 @@ class Pair {
     }
 }
 
-public class HeapSelect {/*
-    public static void main(String[] args) {
+public class HeapSelect {
+    /*public static void main(String[] args) {
         System.out.print("Enter an array of integers: ");
         Scanner input = new Scanner(System.in);
         String inVector = input.nextLine();
@@ -61,7 +61,7 @@ public class HeapSelect {/*
         Vector<Pair> h1 = new Vector<Pair>(10);
         for (int i: array)
             h1.add(new Pair(i, null));
-        buildHeap(h1);
+        buildHeap(h1, k);
         Vector<Pair> h2 = new Vector<Pair>(h1.capacity());
         Pair root = h1.get(0);
         root.setPosition(0);
@@ -69,7 +69,7 @@ public class HeapSelect {/*
         heapSelect(h1, h2, k);
 
         System.out.println(h2.get(0).getKey());
-    }*/
+    }
 
     /**
      * Splits the input line in all the different values
@@ -94,89 +94,145 @@ public class HeapSelect {/*
      * @param k index for the selected element
      */
     public static void heapSelect(Vector<Pair> h1, Vector<Pair> h2, int k){
-        Pair root = h1.get(0);
-        root.setPosition(0);
-        h2.add(root);
-        for(int i = 0; i < k-1; i++) {
-            root = h2.get(0);
-            int rootPos = root.getPosition();
-            int l = rootPos * 2 + 1;
-            int r = rootPos * 2 + 2;
-            extract(h2);
-            if(l < h1.size()) {
-                Pair left = h1.get(l);
-                left.setPosition(l);
-                insert(h2, left);
+        Pair left, right, root;
+        boolean min = false;
+        if(k <= h1.size()/2){
+            for(int i = 0; i < k-1; i++) {
+                root = h2.get(0);
+                int rootPos = root.getPosition();
+                int l = rootPos * 2 + 1;
+                int r = rootPos * 2 + 2;
+                extract(h2, true);
+                if(l < h1.size()) {
+                    left = h1.get(l);
+                    left.setPosition(l);
+                    insertMin(h2, left);
+                }
+                if(r < h1.size()){
+                    right = h1.get(r);
+                    right.setPosition(r);
+                    insertMin(h2, right);
+                }
             }
-            if(r < h1.size()){
-                Pair right = h1.get(r);
-                right.setPosition(r);
-                insert(h2, right);
+        }
+        else {
+            for(int i = h1.size()-1; i > k-1; i--) {
+                root = h2.get(0);
+                int rootPos = root.getPosition();
+                int l = rootPos * 2 + 1;
+                int r = rootPos * 2 + 2;
+                extract(h2, false);
+                if(l < h1.size()) {
+                    left = h1.get(l);
+                    left.setPosition(l);
+                    insertMax(h2, left);
+                }
+                if(r < h1.size()){
+                    right = h1.get(r);
+                    right.setPosition(r);
+                    insertMax(h2, right);
+                }
             }
         }
     }
 
     /**
-     * USELESS
-     *
-    public static void setPositions(Vector<Pair> V) {
-        int pos = 0;
-        for(Pair pair : V)
-            pair.setPosition(pos++);
-    }
+     * Given a vector of pairs, builds a minHeap
+     * @param vector the vector of pairs
+     * @param k the position of the searched element
      */
-
+    public static void buildHeap(Vector<Pair> vector, int k) {
+        for(int i = vector.size()/2 - 1; i >= 0; i--) {
+            if(k <= vector.size()/2)
+                minHeapify(vector, i);
+            else
+                maxHeapify(vector, i);
+        }
+    }
 
     /**
-     * Given a vector of pairs, builds a minHeap
-     * @param V the vector of pairs
+     * maxHeapify algorithm with O(log n) time complexity
+     * @param vector the vector of pairs that will be turned into a minHeap
+     * @param i starting index for the algorithm. REQUIRED 0 <= i< vector length
      */
-    public static void buildHeap(Vector<Pair> V) {
-        for(int i = V.size()/2 - 1; i >= 0; i--)
-            minHeapify(V, i);
+    private static void maxHeapify(Vector<Pair> vector, int i) {
+        int n = vector.size();
+        int greatest = i;
+        int l = 2*i + 1;
+        int r = 2*i + 2;
+
+        if(l < n && vector.get(l).getKey() > vector.get(greatest).getKey())
+            greatest = l;
+        if(r < n && vector.get(r).getKey() > vector.get(greatest).getKey())
+            greatest = r;
+        if(greatest != i) {
+            Collections.swap(vector, i, greatest);
+            maxHeapify(vector, greatest);
+        }
     }
 
 
     /**
      * minHeapify algorithm with O(log n) time complexity
-     * @param V the vector of pairs that will be turned into a minHeap
+     * @param vector the vector of pairs that will be turned into a minHeap
      * @param i starting index for the algorithm. REQUIRED 0 <= i< vector length
      */
-    public static void minHeapify(Vector<Pair> V, int i) {
-        int n = V.size();
+    public static void minHeapify(Vector<Pair> vector, int i) {
+        int n = vector.size();
         int smallest = i;
         int l = 2*i + 1;
         int r = 2*i + 2;
 
-        if(l < n && V.get(l).getKey() < V.get(smallest).getKey())
+        if(l < n && vector.get(l).getKey() < vector.get(smallest).getKey())
             smallest = l;
-        if(r < n && V.get(r).getKey() < V.get(smallest).getKey())
+        if(r < n && vector.get(r).getKey() < vector.get(smallest).getKey())
             smallest = r;
         if(smallest != i) {
-            Collections.swap(V, i, smallest);
-            minHeapify(V, smallest);
+            Collections.swap(vector, i, smallest);
+            minHeapify(vector, smallest);
         }
     }
 
+    /**
+     * Adds an element inside the vector making sure to keep the maxHeap valid
+     * @param vector the minHeap vector
+     * @param pair the new Pair that will be added to the minHeap
+     */
+    public static void insertMax(Vector<Pair> vector, Pair pair) {
+        vector.add(pair);
+        if(vector.size() > 1) {
+            int i = vector.size() - 1;
+            int parentPos = (i - 1) / 2;
+            int parentKey = vector.get(parentPos).getKey();
+            int nodeKey = vector.get(i).getKey();
+            while(i > 0 && nodeKey > parentKey){
+                Collections.swap(vector, i, parentPos);
+                i = parentPos;
+                parentPos = (i - 1) / 2;
+                parentKey = vector.get(parentPos).getKey();
+                nodeKey = vector.get(i).getKey();
+            }
+        }
+    }
 
     /**
      * Adds an element inside the vector making sure to keep the minHeap valid
-     * @param V the minHeap vector
+     * @param vector the minHeap vector
      * @param pair the new Pair that will be added to the minHeap
      */
-    public static void insert(Vector<Pair> V, Pair pair) {
-        V.add(pair);
-        if(V.size() > 1) {
-            int i = V.size() - 1;
+    public static void insertMin(Vector<Pair> vector, Pair pair) {
+        vector.add(pair);
+        if(vector.size() > 1) {
+            int i = vector.size() - 1;
             int parentPos = (i - 1) / 2;
-            int parentKey = V.get(parentPos).getKey();
-            int nodeKey = V.get(i).getKey();
+            int parentKey = vector.get(parentPos).getKey();
+            int nodeKey = vector.get(i).getKey();
             while(i > 0 && nodeKey < parentKey){
-                Collections.swap(V, i, parentPos);
+                Collections.swap(vector, i, parentPos);
                 i = parentPos;
                 parentPos = (i - 1) / 2;
-                parentKey = V.get(parentPos).getKey();
-                nodeKey = V.get(i).getKey();
+                parentKey = vector.get(parentPos).getKey();
+                nodeKey = vector.get(i).getKey();
             }
         }
     }
@@ -184,11 +240,15 @@ public class HeapSelect {/*
 
     /**
      * Extracts the upper element from the vector making sure to keep the minHeap valid
-     * @param V the minHeap vector. REQUIRED as a minHeap
+     * @param vector the heap vector. REQUIRED as a minHeap or a maxHeap
+     * @param min
      */
-    public static void extract(Vector<Pair> V) {
-        Collections.swap(V, 0, V.size() - 1);
-        V.remove(V.size() - 1);
-        minHeapify(V, 0);
+    public static void extract(Vector<Pair> vector, boolean min) {
+        Collections.swap(vector, 0, vector.size() - 1);
+        vector.remove(vector.size() - 1);
+        if(min)
+            minHeapify(vector, 0);
+        else
+            maxHeapify(vector, 0);
     }
 }
