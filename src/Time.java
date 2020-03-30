@@ -11,7 +11,7 @@ import java.util.Vector;
 public class Time {
     public static void main(String[] args) {
         try {
-            int targetSize = 10;
+            int targetSize = 1000;
             String fileName = "Time_" + targetSize + ".xlsx";
             //Initializing a new excel file and sheet in which data will be registered
             FileInputStream inputStream = new FileInputStream(new File(fileName));
@@ -83,7 +83,7 @@ public class Time {
         Vector<Pair> h1 = new Vector<Pair>(10);
         for (int i : array)
             h1.add(new Pair(i, null));
-        HeapSelect.buildHeap(h1);
+        HeapSelect.buildHeap(h1, k);
         Vector<Pair> h2 = new Vector<Pair>(h1.capacity());
         start = System.nanoTime();
         do {

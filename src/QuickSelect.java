@@ -40,27 +40,28 @@ public class QuickSelect {
      * @return the k-th value in the array
      */
     public static int quickSelect(int[] array, int l, int r, int k) {
-        int mid = partition(array, l, r);
-        if (k == mid) {
+        int pivot = partition(array, l, r);
+        if (k == pivot) {
             return array[k];
         }
-        else if(k < mid)
-            return quickSelect(array, l, mid - 1, k);
+        else if(k < pivot)
+            return quickSelect(array, l, pivot - 1, k);
         else
-            return quickSelect(array, mid + 1, r, k);
+            return quickSelect(array, pivot + 1, r, k);
     }
 
-    /**
-     * Provides a partitioning index according to the given indexes
+    /**22
+     * Provides pivot final index after partitioning the array between the given indexes
      * @param array the array that will be partitioned.  REQUIRED not empty
      * @param l left index. REQUIRED 0<=l<array length
      * @param r right index. REQUIRED 0<=r<array length
      * @return the index for partitioning the array
      */
     public static int partition(int[] array, int l, int r) {
-        int pivot = array[r];
-        int i = l - 1;
-        int tmp;
+
+        int pivot = array[r];   // Choose pivot
+        int i = l - 1;          // i is needed to keep trace of the first element on the left of yhe pivot
+        int tmp;                // temporary variable to store an element during swap procedure
 
         for(int j = l; j < r; j++)
             if(array[j] < pivot) {

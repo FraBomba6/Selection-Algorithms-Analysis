@@ -22,7 +22,7 @@ public class RandomTest {
     }
 
     static int getK(int max){
-        int min = 0;
+        int min = 1;
         int k = min + (int)(Math.random() * (max - min));
         return k;
     }
