@@ -50,7 +50,7 @@ class Pair {
 }
 
 public class HeapSelect {
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
         System.out.print("Enter an array of integers: ");
         Scanner input = new Scanner(System.in);
         String inVector = input.nextLine();
@@ -95,9 +95,8 @@ public class HeapSelect {
      */
     public static void heapSelect(Vector<Pair> h1, Vector<Pair> h2, int k){
         Pair left, right, root;
-        boolean min = false;
-        if(k <= h1.size()/2){
-            for(int i = 0; i < k-1; i++) {
+        if(k < h1.size()/2){
+            for(int i = 0; i <= k-1; i++) {
                 root = h2.get(0);
                 int rootPos = root.getPosition();
                 int l = rootPos * 2 + 1;
@@ -116,7 +115,7 @@ public class HeapSelect {
             }
         }
         else {
-            for(int i = h1.size()-1; i > k-1; i--) {
+            for(int i = h1.size()-1; i > k; i--) {
                 root = h2.get(0);
                 int rootPos = root.getPosition();
                 int l = rootPos * 2 + 1;
