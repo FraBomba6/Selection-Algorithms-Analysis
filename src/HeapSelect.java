@@ -1,5 +1,5 @@
-import java.util.Scanner;
 import java.util.Vector;
+import java.util.Scanner;
 import java.util.Collections;
 
 /**
@@ -58,17 +58,7 @@ public class HeapSelect {
         System.out.print("Enter an integer: ");
         int k = input.nextInt();
 
-        Vector<Pair> h1 = new Vector<Pair>(10);
-        for (int i: array)
-            h1.add(new Pair(i, null));
-        buildHeap(h1, k);
-        Vector<Pair> h2 = new Vector<Pair>(h1.capacity());
-        Pair root = h1.get(0);
-        root.setPosition(0);
-        h2.add(root);
-        heapSelect(h1, h2, k);
-
-        System.out.println(h2.get(0).getKey());
+        heapSelect(array, k);
     }
 
     /**
@@ -86,51 +76,81 @@ public class HeapSelect {
         return output;
     }
 
+    public static void heapSelect(int[] array, int k){
+        Vector<Pair> h1 = new Vector<Pair>(10);
+        for (int i: array)
+            h1.add(new Pair(i, null));
+        if (k <= h1.size()/2)
+            buildMinHeap(h1);
+        else
+            buildMaxHeap(h1);
+        Vector<Pair> h2 = new Vector<Pair>(k);
+        Pair root = h1.get(0);
+        root.setPosition(0);
+        h2.add(root);
+
+        if (k <= h1.size()/2)
+            minHeapSelect(h1, h2, k);
+        else
+            maxHeapSelect(h1, h2, k);
+
+        System.out.println(h2.get(0).getKey());
+    }
 
     /**
-     * Selects k-th element in a vector with O(n log n) time complexity
+     * Selects k-th element in a vector with O(k log k) time complexity
      * @param h1 first vector of Pairs. REQUIRED not empty
      * @param h2 second vector of Pairs. REQUIRED not empty
      * @param k index for the selected element
      */
-    public static void heapSelect(Vector<Pair> h1, Vector<Pair> h2, int k){
+    public static void minHeapSelect(Vector<Pair> h1, Vector<Pair> h2, int k){
         Pair left, right, root;
-        if(k < h1.size()/2){
-            for(int i = 0; i <= k-1; i++) {
-                root = h2.get(0);
-                int rootPos = root.getPosition();
-                int l = rootPos * 2 + 1;
-                int r = rootPos * 2 + 2;
-                extract(h2, true);
-                if(l < h1.size()) {
-                    left = h1.get(l);
-                    left.setPosition(l);
-                    insertMin(h2, left);
-                }
-                if(r < h1.size()){
-                    right = h1.get(r);
-                    right.setPosition(r);
-                    insertMin(h2, right);
-                }
+        for(int i = 0; i < k-1; i++) {
+            root = h2.get(0);
+            int rootPos = root.getPosition();
+            int l = rootPos * 2 + 1;
+            int r = rootPos * 2 + 2;
+            extract(h2, true);
+            if(l < h1.size()) {
+                left = h1.get(l);
+                left.setPosition(l);
+                h2.add(left);
+                buildMinHeap(h2);
+            }
+            if(r < h1.size()){
+                right = h1.get(r);
+                right.setPosition(r);
+                h2.add(right);
+                buildMinHeap(h2);
             }
         }
-        else {
-            for(int i = h1.size()-1; i > k; i--) {
-                root = h2.get(0);
-                int rootPos = root.getPosition();
-                int l = rootPos * 2 + 1;
-                int r = rootPos * 2 + 2;
-                extract(h2, false);
-                if(l < h1.size()) {
-                    left = h1.get(l);
-                    left.setPosition(l);
-                    insertMax(h2, left);
-                }
-                if(r < h1.size()){
-                    right = h1.get(r);
-                    right.setPosition(r);
-                    insertMax(h2, right);
-                }
+    }
+
+    /**
+     * Selects k-th element in a vector with O(k log k) time complexity
+     * @param h1 first vector of Pairs. REQUIRED not empty
+     * @param h2 second vector of Pairs. REQUIRED not empty
+     * @param k index for the selected element
+     */
+    public static void maxHeapSelect(Vector<Pair> h1, Vector<Pair> h2, int k){
+        Pair left, right, root;
+        for(int i = h1.size()-1; i > k-1; i--) {
+            root = h2.get(0);
+            int rootPos = root.getPosition();
+            int l = rootPos * 2 + 1;
+            int r = rootPos * 2 + 2;
+            extract(h2, false);
+            if(l < h1.size()) {
+                left = h1.get(l);
+                left.setPosition(l);
+                h2.add(left);
+                buildMaxHeap(h2);
+            }
+            if(r < h1.size()){
+                right = h1.get(r);
+                right.setPosition(r);
+                h2.add(right);
+                buildMaxHeap(h2);
             }
         }
     }
@@ -138,19 +158,25 @@ public class HeapSelect {
     /**
      * Given a vector of pairs, builds a minHeap
      * @param vector the vector of pairs
-     * @param k the position of the searched element
      */
-    public static void buildHeap(Vector<Pair> vector, int k) {
+    public static void buildMinHeap(Vector<Pair> vector) {
         for(int i = vector.size()/2 - 1; i >= 0; i--) {
-            if(k <= vector.size()/2)
-                minHeapify(vector, i);
-            else
-                maxHeapify(vector, i);
+            minHeapify(vector, i);
         }
     }
 
     /**
-     * maxHeapify algorithm with O(log n) time complexity
+     * Given a vector of pairs, builds a maxHeap
+     * @param vector the vector of pairs
+     */
+    public static void buildMaxHeap(Vector<Pair> vector) {
+        for(int i = vector.size()/2 - 1; i >= 0; i--) {
+            maxHeapify(vector, i);
+        }
+    }
+
+    /**
+     * maxHeapify algorithm with O(log n) or O(log k) time complexity
      * @param vector the vector of pairs that will be turned into a minHeap
      * @param i starting index for the algorithm. REQUIRED 0 <= i< vector length
      */
@@ -172,7 +198,7 @@ public class HeapSelect {
 
 
     /**
-     * minHeapify algorithm with O(log n) time complexity
+     * minHeapify algorithm with O(log n) or O(log k) time complexity
      * @param vector the vector of pairs that will be turned into a minHeap
      * @param i starting index for the algorithm. REQUIRED 0 <= i< vector length
      */
@@ -191,51 +217,6 @@ public class HeapSelect {
             minHeapify(vector, smallest);
         }
     }
-
-    /**
-     * Adds an element inside the vector making sure to keep the maxHeap valid
-     * @param vector the minHeap vector
-     * @param pair the new Pair that will be added to the minHeap
-     */
-    public static void insertMax(Vector<Pair> vector, Pair pair) {
-        vector.add(pair);
-        if(vector.size() > 1) {
-            int i = vector.size() - 1;
-            int parentPos = (i - 1) / 2;
-            int parentKey = vector.get(parentPos).getKey();
-            int nodeKey = vector.get(i).getKey();
-            while(i > 0 && nodeKey > parentKey){
-                Collections.swap(vector, i, parentPos);
-                i = parentPos;
-                parentPos = (i - 1) / 2;
-                parentKey = vector.get(parentPos).getKey();
-                nodeKey = vector.get(i).getKey();
-            }
-        }
-    }
-
-    /**
-     * Adds an element inside the vector making sure to keep the minHeap valid
-     * @param vector the minHeap vector
-     * @param pair the new Pair that will be added to the minHeap
-     */
-    public static void insertMin(Vector<Pair> vector, Pair pair) {
-        vector.add(pair);
-        if(vector.size() > 1) {
-            int i = vector.size() - 1;
-            int parentPos = (i - 1) / 2;
-            int parentKey = vector.get(parentPos).getKey();
-            int nodeKey = vector.get(i).getKey();
-            while(i > 0 && nodeKey < parentKey){
-                Collections.swap(vector, i, parentPos);
-                i = parentPos;
-                parentPos = (i - 1) / 2;
-                parentKey = vector.get(parentPos).getKey();
-                nodeKey = vector.get(i).getKey();
-            }
-        }
-    }
-
 
     /**
      * Extracts the upper element from the vector making sure to keep the minHeap valid
