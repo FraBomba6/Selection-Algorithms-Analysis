@@ -93,8 +93,6 @@ public class HeapSelect {
             minHeapSelect(h1, h2, k);
         else
             maxHeapSelect(h1, h2, k);
-
-        System.out.println(h2.get(0).getKey());
     }
 
     /**
