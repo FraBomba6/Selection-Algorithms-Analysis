@@ -1,17 +1,17 @@
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellAddress;
-
+import java.lang.Math;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Vector;
 
 public class Time {
     public static void main(String[] args) {
         try {
             int targetSize = 10;
+            int[] kArray = {0, targetSize - 1, (targetSize - 1)/2, (int) (Math.log(targetSize))};
             String fileName = "Time_" + targetSize + ".xlsx";
             //Initializing a new excel file and sheet in which data will be registered
             FileInputStream inputStream = new FileInputStream(new File(fileName));
@@ -19,8 +19,8 @@ public class Time {
             int[] input = RandomTest.randomInput(targetSize);
 
             //Fills the excel sheet
-            for (int i = 0; i < 5; i++) {
-                int k = RandomTest.getK(targetSize);
+            for (int i = 0; i < 4; i++) {
+                int k = kArray[i];
                 Sheet sheet = workbook.getSheetAt(i);
                 sheet.setActiveCell(new CellAddress(0, 3));
                 Row kRow = sheet.getRow(0);
@@ -102,7 +102,6 @@ public class Time {
         start = System.nanoTime();
         do {
             MedianSelect.MedianOfMedians(array, 0, array.length - 1, false, k);
-            ;
             end = System.nanoTime();
             count++;
         } while (end - start <= 10100);

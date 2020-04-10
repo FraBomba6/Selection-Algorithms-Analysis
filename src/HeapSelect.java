@@ -89,12 +89,10 @@ public class HeapSelect {
         root.setPosition(0);
         h2.add(root);
 
-        if (k <= h1.size()/2)
+        if (k < h1.size()/2)
             minHeapSelect(h1, h2, k);
         else
             maxHeapSelect(h1, h2, k);
-
-        System.out.println(h2.get(0).getKey());
     }
 
     /**
