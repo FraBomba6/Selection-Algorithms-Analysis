@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Time {
     public static void main(String[] args) {
         try {
-            int targetSize = 10;
+            int targetSize = 100000;
             int[] kArray = {0, targetSize - 1, (targetSize - 1)/2, (int) (Math.log(targetSize))};
             String fileName = "Time_" + targetSize + ".xlsx";
             //Initializing a new excel file and sheet in which data will be registered
