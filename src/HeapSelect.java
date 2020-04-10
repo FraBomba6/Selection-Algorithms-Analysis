@@ -78,9 +78,9 @@ public class HeapSelect {
 
     public static void heapSelect(int[] array, int k){
         Vector<Pair> h1 = new Vector<Pair>(10);
-        for (int i: array)
+        for (int i : array)
             h1.add(new Pair(i, null));
-        if (k <= h1.size()/2)
+        if (k < h1.size()/2)
             buildMinHeap(h1);
         else
             buildMaxHeap(h1);
@@ -105,7 +105,7 @@ public class HeapSelect {
      */
     public static void minHeapSelect(Vector<Pair> h1, Vector<Pair> h2, int k){
         Pair left, right, root;
-        for(int i = 0; i < k-1; i++) {
+        for(int i = 0; i <= k-1; i++) {
             root = h2.get(0);
             int rootPos = root.getPosition();
             int l = rootPos * 2 + 1;

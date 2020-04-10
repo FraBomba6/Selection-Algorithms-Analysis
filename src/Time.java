@@ -80,17 +80,9 @@ public class Time {
     public static long getExTimeHeapSelect(int[] array, int k) {
         long start, end;
         int count = 0;
-        Vector<Pair> h1 = new Vector<Pair>();
-        for (int i : array)
-            h1.add(new Pair(i, null));
-        HeapSelect.buildHeap(h1, k);
         start = System.nanoTime();
         do {
-            Vector<Pair> h2 = new Vector<Pair>(h1.capacity());
-            Pair root = h1.get(0);
-            root.setPosition(0);
-            h2.add(root);
-            HeapSelect.heapSelect(h1, h2, k);
+            HeapSelect.heapSelect(array, k);
             end = System.nanoTime();
             count++;
         } while (end - start <= 10100);
