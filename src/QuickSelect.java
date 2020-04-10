@@ -40,14 +40,19 @@ public class QuickSelect {
      * @return the k-th value in the array
      */
     public static int quickSelect(int[] array, int l, int r, int k) {
-        int pivot = partition(array, l, r);
-        if (k == pivot) {
+        if (k < l || k > r)
+            System.exit(-1);
+
+        int pivot_index = partition(array, l, r);
+
+        if (k == pivot_index)
             return array[k];
-        }
-        else if(k < pivot)
-            return quickSelect(array, l, pivot - 1, k);
+
+        else if(k < pivot_index)
+            return quickSelect(array, l, pivot_index - 1, k);
+
         else
-            return quickSelect(array, pivot + 1, r, k);
+            return quickSelect(array, pivot_index + 1, r, k);
     }
 
     /**22

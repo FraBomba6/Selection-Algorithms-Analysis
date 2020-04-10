@@ -128,7 +128,7 @@ public class MedianSelect {
      * @param j index for the second element. REQUIRED 0<=j<array length
      */
     public static void swap(int[] array, int i, int j) {
-        int tmp = array[i];;;
+        int tmp = array[i];
         array[i] = array[j];
         array[j] = tmp;
     }

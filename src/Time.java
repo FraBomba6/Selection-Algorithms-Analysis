@@ -11,7 +11,7 @@ import java.util.Vector;
 public class Time {
     public static void main(String[] args) {
         try {
-            int targetSize = 100000;
+            int targetSize = 10;
             String fileName = "Time_" + targetSize + ".xlsx";
             //Initializing a new excel file and sheet in which data will be registered
             FileInputStream inputStream = new FileInputStream(new File(fileName));
@@ -80,17 +80,9 @@ public class Time {
     public static long getExTimeHeapSelect(int[] array, int k) {
         long start, end;
         int count = 0;
-        Vector<Pair> h1 = new Vector<Pair>(10);
-        for (int i : array)
-            h1.add(new Pair(i, null));
-        HeapSelect.buildHeap(h1, k);
-        Vector<Pair> h2 = new Vector<Pair>(h1.capacity());
-        Pair root = h1.get(0);
-        root.setPosition(0);
-        h2.add(root);
         start = System.nanoTime();
         do {
-            HeapSelect.heapSelect(h1, h2, k);
+            HeapSelect.heapSelect(array, k);
             end = System.nanoTime();
             count++;
         } while (end - start <= 10100);
