@@ -12,7 +12,7 @@ public class Time {
         try {
             int targetSize;
             double x;
-            String fileName = "Time_final.xlsx";
+            String fileName = "Time.xlsx";
             //Initializing a new excel file and sheet in which data will be registered
             FileInputStream inputStream = new FileInputStream(new File(fileName));
             Workbook workbook = WorkbookFactory.create(inputStream);
@@ -28,8 +28,9 @@ public class Time {
 
                 //Compute the execution time 50 times for every algorithm choosing a different k every time.
                 for (int i = 0; i < 4; i++) {
+                    System.out.println("Sheet " + iter + "    k " + i);
                     int k = kArray[i];
-                    Sheet sheet = workbook.getSheetAt(0);
+                    Sheet sheet = workbook.getSheetAt(iter);
                     for (int row_index = 4; row_index < 54; row_index++) {
                         //New line
                         Row row = sheet.getRow(row_index);
