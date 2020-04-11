@@ -10,40 +10,41 @@ import java.io.IOException;
 public class Time {
     public static void main(String[] args) {
         try {
-            int targetSize = 100000;
-            int[] kArray = {0, targetSize - 1, (targetSize - 1)/2, (int) (Math.log(targetSize))};
-            String fileName = "Time_" + targetSize + ".xlsx";
+            int targetSize;
+            double x;
+            String fileName = "Time_final.xlsx";
             //Initializing a new excel file and sheet in which data will be registered
             FileInputStream inputStream = new FileInputStream(new File(fileName));
             Workbook workbook = WorkbookFactory.create(inputStream);
-            int[] input = RandomTest.randomInput(targetSize);
 
-            //Fills the excel sheet
-            for (int i = 0; i < 4; i++) {
-                int k = kArray[i];
-                Sheet sheet = workbook.getSheetAt(i);
-                sheet.setActiveCell(new CellAddress(0, 3));
-                Row kRow = sheet.getRow(0);
-                Cell kCell = kRow.getCell(3);
-                kCell.setCellValue(k);
-                for (int row_index = 1; row_index < 101; row_index++) {
-                    //New line
-                    Row row = sheet.createRow(row_index);
-                    Cell cell = row.createCell(0);
-                    //Executes heap select
-                    cell.setCellValue(getExTimeHeapSelect(input, k));
-                    cell = row.createCell(1);
-                    //Executes Quick select
-                    cell.setCellValue(getExTimeQuickSelect(input, k));
-                    cell = row.createCell(2);
-                    //Executes Median of Medians select
-                    cell.setCellValue(getExTimeMedianSelect(input, k));
+            //For each iteration generates a targetsize for the array based on the exponential function
+            for(int iter = 0; iter < 50; iter++ ){
+                x = 1.58 * (double)iter;
+                targetSize = (int)(Math.pow(1.22, x/1.8)*10);
 
-                    System.out.print("\rSheet "+(i+1)+" "+row_index+"%");
+                //builds the random filled array based on the target size and sets 4 different values for k
+                int[] kArray = {0, targetSize - 1, (targetSize - 1)/2, (int) (Math.log(targetSize))};
+                int[] input = RandomTest.randomInput(targetSize);
+
+                //Compute the execution time 50 times for every algorithm choosing a different k every time.
+                for (int i = 0; i < 4; i++) {
+                    int k = kArray[i];
+                    Sheet sheet = workbook.getSheetAt(0);
+                    for (int row_index = 4; row_index < 54; row_index++) {
+                        //New line
+                        Row row = sheet.getRow(row_index);
+                        Cell cell = row.createCell(5*i);
+                        //Executes heap select
+                        cell.setCellValue(getExTimeHeapSelect(input, k));
+                        cell = row.createCell(5*i + 1);
+                        //Executes Quick select
+                        cell.setCellValue(getExTimeQuickSelect(input, k));
+                        cell = row.createCell(5*i + 2);
+                        //Executes Median of Medians select
+                        cell.setCellValue(getExTimeMedianSelect(input, k));
+                    }
                 }
-                System.out.println();
             }
-            //terminates after filling the sheet with 100 time execution's observations for each algorithm
 
             inputStream.close();
 
