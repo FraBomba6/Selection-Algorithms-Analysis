@@ -51,12 +51,12 @@ class Pair {
 
 public class HeapSelect {
     public static void main(String[] args) {
-        //System.out.print("Enter an array of integers: ");
-        //Scanner input = new Scanner(System.in);
-        String inVector =  ("7 3 11 5");//input.nextLine();
+        System.out.print("Enter an array of integers: ");
+        Scanner input = new Scanner(System.in);
+        String inVector =  input.nextLine();
         int[] array = getInputVector(inVector);
-        //System.out.print("Enter an integer: ");
-        int k = 2;//input.nextInt();
+        System.out.print("Enter an integer: ");
+        int k = input.nextInt();
 
         heapSelect(array, k);
     }
