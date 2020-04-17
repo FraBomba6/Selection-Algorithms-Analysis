@@ -93,6 +93,8 @@ public class HeapSelect {
             minHeapSelect(h1, h2, k);
         else
             maxHeapSelect(h1, h2, k);
+
+        System.out.println(h2.get(0).getKey());
     }
 
     /**
@@ -113,13 +115,13 @@ public class HeapSelect {
                 left = h1.get(l);
                 left.setPosition(l);
                 h2.add(left);
-                buildMinHeap(h2);
+                minHeapify(h2,h2.size() - 1);
             }
             if(r < h1.size()){
                 right = h1.get(r);
                 right.setPosition(r);
                 h2.add(right);
-                buildMinHeap(h2);
+                minHeapify(h2,h2.size() - 1);
             }
         }
     }
@@ -142,13 +144,13 @@ public class HeapSelect {
                 left = h1.get(l);
                 left.setPosition(l);
                 h2.add(left);
-                buildMaxHeap(h2);
+                maxHeapify(h2,h2.size() - 1);
             }
             if(r < h1.size()){
                 right = h1.get(r);
                 right.setPosition(r);
                 h2.add(right);
-                buildMaxHeap(h2);
+                maxHeapify(h2,h2.size() - 1);
             }
         }
     }
