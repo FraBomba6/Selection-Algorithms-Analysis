@@ -20,7 +20,7 @@ public class Time {
             //For each iteration generates a targetsize for the array based on the exponential function
             for(int iter = 0; iter < 50; iter++){
                 x = 1.58 * (double)iter;
-                targetSize = (int)(Math.pow(1.22, x/1.8)*10);
+                targetSize = (int)(Math.pow(1.25, x/1.8)*10);
 
                 //builds the random filled array based on the target size and sets 4 different values for k
                 int[] kArray = {4, (targetSize-1)/2, (int)(Math.log(targetSize)), (targetSize - 5)};

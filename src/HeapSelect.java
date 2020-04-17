@@ -50,6 +50,7 @@ class Pair {
 }
 
 public class HeapSelect {
+    /*
     public static void main(String[] args) {
         System.out.print("Enter an array of integers: ");
         Scanner input = new Scanner(System.in);
@@ -59,7 +60,7 @@ public class HeapSelect {
         int k = input.nextInt();
 
         heapSelect(array, k);
-    }
+    }*/
 
     /**
      * Splits the input line in all the different values
@@ -94,7 +95,7 @@ public class HeapSelect {
         else
             maxHeapSelect(h1, h2, k);
 
-        System.out.println(h2.get(0).getKey());
+        //System.out.println(h2.get(0).getKey());
     }
 
     /**
