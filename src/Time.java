@@ -18,16 +18,16 @@ public class Time {
             Workbook workbook = WorkbookFactory.create(inputStream);
 
             //For each iteration generates a targetsize for the array based on the exponential function
-            for(int iter = 0; iter < 50; iter++ ){
+            for(int iter = 0; iter < 50; iter++){
                 x = 1.58 * (double)iter;
                 targetSize = (int)(Math.pow(1.22, x/1.8)*10);
 
                 //builds the random filled array based on the target size and sets 4 different values for k
-                int[] kArray = {0, targetSize - 1, (targetSize - 1)/2, (int) (Math.log(targetSize))};
-                int[] input = RandomTest.randomInput(targetSize);
+                int[] kArray = {4, (targetSize-1)/2, (int)(Math.log(targetSize)), (targetSize - 5)};
 
                 //Compute the execution time 50 times for every algorithm choosing a different k every time.
                 for (int i = 0; i < 4; i++) {
+                    int[] input = RandomTest.randomInput(targetSize);
                     System.out.println("Sheet " + iter + "    k " + i);
                     int k = kArray[i];
                     Sheet sheet = workbook.getSheetAt(iter);
@@ -58,6 +58,7 @@ public class Time {
             ex.printStackTrace();
         }
     }
+
 
     /**
      * Computates execution time for minHeap selection algorithm

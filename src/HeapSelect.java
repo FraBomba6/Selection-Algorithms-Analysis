@@ -81,7 +81,7 @@ public class HeapSelect {
         for (int i : array)
             h1.add(new Pair(i, null));
         if (k < h1.size()/2)
-            buildMinHeap(h1);
+            buildMinHeap(h1);    // O(n)
         else
             buildMaxHeap(h1);
         Vector<Pair> h2 = new Vector<Pair>(k);
@@ -89,12 +89,10 @@ public class HeapSelect {
         root.setPosition(0);
         h2.add(root);
 
-        if (k <= h1.size()/2)
+        if (k < h1.size()/2)
             minHeapSelect(h1, h2, k);
         else
             maxHeapSelect(h1, h2, k);
-
-        System.out.println(h2.get(0).getKey());
     }
 
     /**
@@ -115,19 +113,13 @@ public class HeapSelect {
                 left = h1.get(l);
                 left.setPosition(l);
                 h2.add(left);
-                while(l > 0 && h2.get(l).getKey() < h2.get((l - 1) / 2).getKey()) {
-                    Collections.swap(h2, l, (l - 1) / 2);
-                    l = (l - 1) / 2;
-                }
+                buildMinHeap(h2);
             }
             if(r < h1.size()){
                 right = h1.get(r);
                 right.setPosition(r);
                 h2.add(right);
-                while(r > 0 && h2.get(r).getKey() < h2.get((r - 1) / 2).getKey()) {
-                    Collections.swap(h2, r, (r - 1) / 2);
-                    r = (r - 1) / 2;
-                }
+                buildMinHeap(h2);
             }
         }
     }
@@ -145,24 +137,18 @@ public class HeapSelect {
             int rootPos = root.getPosition();
             int l = rootPos * 2 + 1;
             int r = rootPos * 2 + 2;
-            extract(h2, false);
+            extract(h2, false);  // O(log k)
             if(l < h1.size()) {
                 left = h1.get(l);
                 left.setPosition(l);
                 h2.add(left);
-                while(l > 0 && h2.get(l).getKey() > h2.get((l - 1) / 2).getKey()) {
-                    Collections.swap(h2, l, (l - 1) / 2);
-                    l = (l - 1) / 2;
-                }
+                buildMaxHeap(h2); // O(k)     INSERT potrebbe risolvere (?)
             }
-            if(r < h1.size()){
+            if(r < h1.size()) {
                 right = h1.get(r);
                 right.setPosition(r);
                 h2.add(right);
-                while(r > 0 && h2.get(r).getKey() > h2.get((r - 1) / 2).getKey()) {
-                    Collections.swap(h2, r, (r - 1) / 2);
-                    r = (r - 1) / 2;
-                }
+                buildMaxHeap(h2);  // O(k)
             }
         }
     }
@@ -193,18 +179,18 @@ public class HeapSelect {
      * @param i starting index for the algorithm. REQUIRED 0 <= i< vector length
      */
     private static void maxHeapify(Vector<Pair> vector, int i) {
-        int n = vector.size();
-        int greatest = i;
-        int l = 2*i + 1;
-        int r = 2*i + 2;
+        int n = vector.size();      //O(1)
+        int greatest = i;           //O(1)
+        int l = 2*i + 1;            //O(1)
+        int r = 2*i + 2;            //O(1)
 
-        if(l < n && vector.get(l).getKey() > vector.get(greatest).getKey())
-            greatest = l;
-        if(r < n && vector.get(r).getKey() > vector.get(greatest).getKey())
-            greatest = r;
-        if(greatest != i) {
-            Collections.swap(vector, i, greatest);
-            maxHeapify(vector, greatest);
+        if(l < n && vector.get(l).getKey() > vector.get(greatest).getKey())   //O(3)
+            greatest = l;   //O(1)
+        if(r < n && vector.get(r).getKey() > vector.get(greatest).getKey())   //O(3)
+            greatest = r;   //O(1)
+        if(greatest != i) {  //O(1)
+            Collections.swap(vector, i, greatest);    //O(1)
+            maxHeapify(vector, greatest);             // recursion
         }
     }
 
@@ -236,10 +222,10 @@ public class HeapSelect {
      * @param min
      */
     public static void extract(Vector<Pair> vector, boolean min) {
-        Collections.swap(vector, 0, vector.size() - 1);
-        vector.remove(vector.size() - 1);
-        if(min)
-            minHeapify(vector, 0);
+        Collections.swap(vector, 0, vector.size() - 1);  //O(1)
+        vector.remove(vector.size() - 1);               //O(1)
+        if(min)                                               //O(1)
+            minHeapify(vector, 0);                         //O(log k)
         else
             maxHeapify(vector, 0);
     }
