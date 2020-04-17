@@ -89,7 +89,7 @@ public class HeapSelect {
         root.setPosition(0);
         h2.add(root);
 
-        if (k < h1.size()/2)
+        if (k <= h1.size()/2)
             minHeapSelect(h1, h2, k);
         else
             maxHeapSelect(h1, h2, k);
@@ -115,13 +115,19 @@ public class HeapSelect {
                 left = h1.get(l);
                 left.setPosition(l);
                 h2.add(left);
-                minHeapify(h2,h2.size() - 1);
+                while(l > 0 && h2.get(l).getKey() < h2.get((l - 1) / 2).getKey()) {
+                    Collections.swap(h2, l, (l - 1) / 2);
+                    l = (l - 1) / 2;
+                }
             }
             if(r < h1.size()){
                 right = h1.get(r);
                 right.setPosition(r);
                 h2.add(right);
-                minHeapify(h2,h2.size() - 1);
+                while(r > 0 && h2.get(r).getKey() < h2.get((r - 1) / 2).getKey()) {
+                    Collections.swap(h2, r, (r - 1) / 2);
+                    r = (r - 1) / 2;
+                }
             }
         }
     }
@@ -144,13 +150,19 @@ public class HeapSelect {
                 left = h1.get(l);
                 left.setPosition(l);
                 h2.add(left);
-                maxHeapify(h2,h2.size() - 1);
+                while(l > 0 && h2.get(l).getKey() > h2.get((l - 1) / 2).getKey()) {
+                    Collections.swap(h2, l, (l - 1) / 2);
+                    l = (l - 1) / 2;
+                }
             }
             if(r < h1.size()){
                 right = h1.get(r);
                 right.setPosition(r);
                 h2.add(right);
-                maxHeapify(h2,h2.size() - 1);
+                while(r > 0 && h2.get(r).getKey() > h2.get((r - 1) / 2).getKey()) {
+                    Collections.swap(h2, r, (r - 1) / 2);
+                    r = (r - 1) / 2;
+                }
             }
         }
     }
