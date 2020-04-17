@@ -60,21 +60,6 @@ public class Time {
     }
 
     /**
-     * Computates the resolution error from the executin machine
-     *
-     * @return the error as a long value
-     */
-    public static long getResolution() {
-        long start, end;
-        start = System.nanoTime();
-        do {
-            end = System.nanoTime();
-        } while (start == end);
-
-        return end - start;
-    }
-
-    /**
      * Computates execution time for minHeap selection algorithm
      *
      * @return the execution time as a long value

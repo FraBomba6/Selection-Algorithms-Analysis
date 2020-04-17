@@ -15,9 +15,7 @@ public class Resolution {
         }
 
         Collections.sort(resolutions);
-        Long median = resolutions.get(50);
-        for (long i: resolutions) {
-            System.out.println(i);
-        }
+        Long median = resolutions.get(100);
+        System.out.println(median);
     }
 }
