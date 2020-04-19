@@ -1,0 +1,10 @@
+18 APRILE 2020
+- Aggiunto un file di template (Time_Template.xlsx) per la creazione del file Time.xlsx
+
+- Modificata la classe Excel in modo che qualora non esistesse Time.xlsx sia possibile crearlo a partire dal file di template
+    - La classe crea un file contenente un foglio di calcolo per ognuna delle 50 lunghewzze di vettore definite dalla funzione apposita
+    - Il nome del foglio di calcolo è dato dalla lunghezza del vettore a cui sono riferiti i tempi
+
+- Modificata la funzione per il calcolo delle lunghezze sia in Excel che in Time
+
+- Ricalcolati i tempi sulle nuove lunghezze
