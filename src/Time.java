@@ -8,10 +8,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class Time {
+
     public static void main(String[] args) {
         try {
             int targetSize;
             double x;
+            long maxError = Resolution.getResolution()*101;
             String fileName = "Time.xlsx";
             //Initializing a new excel file and sheet in which data will be registered
             FileInputStream inputStream = new FileInputStream(new File(fileName));
@@ -27,22 +29,22 @@ public class Time {
 
                 //Compute the execution time 50 times for every algorithm choosing a different k every time.
                 for (int i = 0; i < 4; i++) {
-                    int[] input = RandomTest.randomInput(targetSize);
                     int k = kArray[i];
                     Sheet sheet = workbook.getSheetAt(iter);
                     System.out.println("Sheet " + iter + "    Array length: " + sheet.getSheetName() + "    k: " + kArray[i]);
                     for (int row_index = 4; row_index < 54; row_index++) {
+                        int[] input = RandomTest.randomInput(targetSize);
                         //New line
                         Row row = sheet.getRow(row_index);
                         Cell cell = row.createCell(5*i);
                         //Executes heap select
-                        cell.setCellValue(getExTimeHeapSelect(input, k));
+                        cell.setCellValue(getExTimeHeapSelect(input, k, maxError));
                         cell = row.createCell(5*i + 1);
                         //Executes Quick select
-                        cell.setCellValue(getExTimeQuickSelect(input, k));
+                        cell.setCellValue(getExTimeQuickSelect(input, k, maxError));
                         cell = row.createCell(5*i + 2);
                         //Executes Median of Medians select
-                        cell.setCellValue(getExTimeMedianSelect(input, k));
+                        cell.setCellValue(getExTimeMedianSelect(input, k, maxError));
                     }
                 }
             }
@@ -65,7 +67,7 @@ public class Time {
      *
      * @return the execution time as a long value
      */
-    public static long getExTimeHeapSelect(int[] array, int k) {
+    public static long getExTimeHeapSelect(int[] array, int k, long maxError) {
         long start, end;
         int count = 0;
         start = System.nanoTime();
@@ -73,7 +75,7 @@ public class Time {
             HeapSelect.heapSelect(array, k);
             end = System.nanoTime();
             count++;
-        } while (end - start <= 10100);
+        } while (end - start <= maxError);
 
         return (end - start) / count;
     }
@@ -84,7 +86,7 @@ public class Time {
      *
      * @return the execution time as a long value
      */
-    public static long getExTimeMedianSelect(int[] array, int k) {
+    public static long getExTimeMedianSelect(int[] array, int k, long maxError) {
         long start, end;
         int count = 0;
         start = System.nanoTime();
@@ -92,7 +94,7 @@ public class Time {
             MedianSelect.MedianOfMedians(array, 0, array.length - 1, false, k);
             end = System.nanoTime();
             count++;
-        } while (end - start <= 10100);
+        } while (end - start <= maxError);
 
         return (end - start) / count;
     }
@@ -103,7 +105,7 @@ public class Time {
      *
      * @return the execution time as a long value
      */
-    public static long getExTimeQuickSelect(int[] array, int k) {
+    public static long getExTimeQuickSelect(int[] array, int k, long maxError) {
         long start, end;
         int count = 0;
         start = System.nanoTime();
@@ -111,7 +113,7 @@ public class Time {
             QuickSelect.quickSelect(array, 0, array.length - 1, k);
             end = System.nanoTime();
             count++;
-        } while (end - start <= 10100);
+        } while (end - start <= maxError);
 
         return (end - start) / count;
     }

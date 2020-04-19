@@ -2,7 +2,7 @@ import java.util.Collections;
 import java.util.Vector;
 
 public class Resolution {
-    public static void main(String[] args){
+    public static Long getResolution(){
         long start, end, res;
         Vector<Long> resolutions = new Vector<>();
         for(int i=1; i<=200; i++) {
@@ -15,7 +15,6 @@ public class Resolution {
         }
 
         Collections.sort(resolutions);
-        Long median = resolutions.get(100);
-        System.out.println(median);
+        return resolutions.get(100);
     }
 }
