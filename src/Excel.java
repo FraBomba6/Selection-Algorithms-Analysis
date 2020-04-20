@@ -3,8 +3,9 @@ import org.apache.poi.ss.usermodel.*;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class Excel {
     public static void main(String[] args) throws FileNotFoundException {
@@ -12,7 +13,7 @@ public class Excel {
             String templateName = "Time_Template.xlsx";
             String fileName = "Time.xlsx";
 
-            Files.copy(Paths.get(templateName), Paths.get(fileName));
+            Files.copy(Paths.get(templateName), Paths.get(fileName), REPLACE_EXISTING);
             //Initializing a new excel file and sheet in which data will be registered
             FileInputStream inputStream = new FileInputStream(new File(fileName));
 

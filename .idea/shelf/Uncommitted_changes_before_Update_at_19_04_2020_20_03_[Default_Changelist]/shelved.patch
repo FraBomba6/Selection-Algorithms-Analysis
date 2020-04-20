@@ -1,0 +1,65 @@
+Index: src/Time.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import org.apache.poi.EncryptedDocumentException;\r\nimport org.apache.poi.ss.usermodel.*;\r\nimport org.apache.poi.ss.util.CellAddress;\r\nimport java.lang.Math;\r\nimport java.io.File;\r\nimport java.io.FileInputStream;\r\nimport java.io.FileOutputStream;\r\nimport java.io.IOException;\r\n\r\npublic class Time {\r\n    public static void main(String[] args) {\r\n        try {\r\n            int targetSize;\r\n            double x;\r\n            String fileName = \"Time.xlsx\";\r\n            //Initializing a new excel file and sheet in which data will be registered\r\n            FileInputStream inputStream = new FileInputStream(new File(fileName));\r\n            Workbook workbook = WorkbookFactory.create(inputStream);\r\n\r\n            //For each iteration generates a targetsize for the array based on the exponential function\r\n            for(int iter = 0; iter < 50; iter++){\r\n                x = 1.58 * (double)iter;\r\n                targetSize = (int)(Math.pow(1.3, x/1.6)*10);\r\n\r\n                //builds the random filled array based on the target size and sets 4 different values for k\r\n                int[] kArray = {4, (targetSize-1)/2, (int)(Math.log(targetSize)), (targetSize - 5)};\r\n\r\n                //Compute the execution time 50 times for every algorithm choosing a different k every time.\r\n                for (int i = 0; i < 4; i++) {\r\n                    int[] input = RandomTest.randomInput(targetSize);\r\n                    int k = kArray[i];\r\n                    Sheet sheet = workbook.getSheetAt(iter);\r\n                    System.out.println(\"Sheet \" + iter + \"    Array length: \" + sheet.getSheetName() + \"    k: \" + kArray[i]);\r\n                    for (int row_index = 4; row_index < 54; row_index++) {\r\n                        //New line\r\n                        Row row = sheet.getRow(row_index);\r\n                        Cell cell = row.createCell(5*i);\r\n                        //Executes heap select\r\n                        cell.setCellValue(getExTimeHeapSelect(input, k));\r\n                        cell = row.createCell(5*i + 1);\r\n                        //Executes Quick select\r\n                        cell.setCellValue(getExTimeQuickSelect(input, k));\r\n                        cell = row.createCell(5*i + 2);\r\n                        //Executes Median of Medians select\r\n                        cell.setCellValue(getExTimeMedianSelect(input, k));\r\n                    }\r\n                }\r\n            }\r\n\r\n            inputStream.close();\r\n\r\n            //saves the excel file created before\r\n            FileOutputStream outputStream = new FileOutputStream(fileName);\r\n            workbook.write(outputStream);\r\n            workbook.close();\r\n            outputStream.close();\r\n        } catch (IOException | EncryptedDocumentException ex) {\r\n            ex.printStackTrace();\r\n        }\r\n    }\r\n\r\n\r\n    /**\r\n     * Computates execution time for minHeap selection algorithm\r\n     *\r\n     * @return the execution time as a long value\r\n     */\r\n    public static long getExTimeHeapSelect(int[] array, int k) {\r\n        long start, end;\r\n        int count = 0;\r\n        start = System.nanoTime();\r\n        do {\r\n            HeapSelect.heapSelect(array, k);\r\n            end = System.nanoTime();\r\n            count++;\r\n        } while (end - start <= 10100);\r\n\r\n        return (end - start) / count;\r\n    }\r\n\r\n\r\n    /**\r\n     * Computates execution time for median of medians selection algorithm\r\n     *\r\n     * @return the execution time as a long value\r\n     */\r\n    public static long getExTimeMedianSelect(int[] array, int k) {\r\n        long start, end;\r\n        int count = 0;\r\n        start = System.nanoTime();\r\n        do {\r\n            MedianSelect.MedianOfMedians(array, 0, array.length - 1, false, k);\r\n            end = System.nanoTime();\r\n            count++;\r\n        } while (end - start <= 10100);\r\n\r\n        return (end - start) / count;\r\n    }\r\n\r\n\r\n    /**\r\n     * Computates execution time for quick select algorithm\r\n     *\r\n     * @return the execution time as a long value\r\n     */\r\n    public static long getExTimeQuickSelect(int[] array, int k) {\r\n        long start, end;\r\n        int count = 0;\r\n        start = System.nanoTime();\r\n        do {\r\n            QuickSelect.quickSelect(array, 0, array.length - 1, k);\r\n            end = System.nanoTime();\r\n            count++;\r\n        } while (end - start <= 10100);\r\n\r\n        return (end - start) / count;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Time.java	(revision 377fca740fbd926d8ad7356a1dc300ad20da5bc7)
++++ src/Time.java	(date 1587318949249)
+@@ -12,40 +12,41 @@
+         try {
+             int targetSize;
+             double x;
+-            String fileName = "Time.xlsx";
++            String fileName = "Time_Test.xlsx";
+             //Initializing a new excel file and sheet in which data will be registered
+             FileInputStream inputStream = new FileInputStream(new File(fileName));
+             Workbook workbook = WorkbookFactory.create(inputStream);
+ 
+             //For each iteration generates a targetsize for the array based on the exponential function
+-            for(int iter = 0; iter < 50; iter++){
+-                x = 1.58 * (double)iter;
+-                targetSize = (int)(Math.pow(1.3, x/1.6)*10);
++            //for(int iter = 0; iter < 50; iter++){
++                //x = 1.58 * (double)iter;
++                targetSize = 1500;//(int)(Math.pow(1.3, x/1.6)*10);
+ 
+                 //builds the random filled array based on the target size and sets 4 different values for k
+                 int[] kArray = {4, (targetSize-1)/2, (int)(Math.log(targetSize)), (targetSize - 5)};
+ 
+                 //Compute the execution time 50 times for every algorithm choosing a different k every time.
+-                for (int i = 0; i < 4; i++) {
+-                    int[] input = RandomTest.randomInput(targetSize);
+-                    int k = kArray[i];
+-                    Sheet sheet = workbook.getSheetAt(iter);
+-                    System.out.println("Sheet " + iter + "    Array length: " + sheet.getSheetName() + "    k: " + kArray[i]);
++                //for (int i = 0; i < 4; i++) {
++                    /////////
++                    int k = 1460;//kArray[i];
++                    Sheet sheet = workbook.getSheetAt(0);
++                    System.out.println("Sheet " + 0 + "    Array length: " + sheet.getSheetName() + "    k: " + kArray[0]);
+                     for (int row_index = 4; row_index < 54; row_index++) {
++                        int[] input = RandomTest.randomInput(targetSize);
+                         //New line
+                         Row row = sheet.getRow(row_index);
+-                        Cell cell = row.createCell(5*i);
++                        Cell cell = row.createCell(0);
+                         //Executes heap select
+                         cell.setCellValue(getExTimeHeapSelect(input, k));
+-                        cell = row.createCell(5*i + 1);
++                        cell = row.createCell(5*0 + 1);
+                         //Executes Quick select
+                         cell.setCellValue(getExTimeQuickSelect(input, k));
+-                        cell = row.createCell(5*i + 2);
++                        cell = row.createCell(5*0 + 2);
+                         //Executes Median of Medians select
+                         cell.setCellValue(getExTimeMedianSelect(input, k));
+                     }
+-                }
+-            }
++               // }
++           // }
+ 
+             inputStream.close();
+ 
