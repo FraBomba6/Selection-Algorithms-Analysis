@@ -1,0 +1,89 @@
+Index: src/QuickSelect.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.util.Scanner;\r\n\r\npublic class QuickSelect {\r\n    /*\r\n    public static void main(String[] args) {\r\n        System.out.print(\"Enter an array of integers: \");\r\n        Scanner input = new Scanner(System.in);\r\n        String inVector = input.nextLine();\r\n        int[] array = getInputVector(inVector);\r\n        System.out.print(\"Enter an integer: \");\r\n        int k = input.nextInt();\r\n\r\n        System.out.print(quickSelect(array, 0, array.length - 1, --k));\r\n    }\r\n    */\r\n    /**\r\n     * Splits the input line in all the different values\r\n     * @param inputLine required as a string of ints divided by one (or more) blank spaces\r\n     * @return an int array containing all the ints from the input\r\n     */\r\n    /*\r\n    static int[] getInputVector(String inputLine){\r\n        String els[] = inputLine.split(\"\\\\s+\");\r\n        int length = els.length;\r\n        int[] output = new int[length];\r\n        for (int i = 0; i < length; i++) {\r\n            output[i] = Integer.parseInt(els[i]);\r\n        }\r\n        return output;\r\n    }\r\n    */\r\n\r\n\r\n    /**\r\n     * Finds k-th element in the array in 0(n^2) time complexity\r\n     * @param array the array in which the element will be searched. REQUIRED not empty\r\n     * @param l the left index. REQUIRED 0<=l<array length\r\n     * @param r the right index. REQUIRED 0<=r<array length\r\n     * @param k the index for the element that will be retured. REQUIRED 0<=k<array length\r\n     * @return the k-th value in the array\r\n     */\r\n    public static int quickSelect(int[] array, int l, int r, int k) {\r\n        if (k < l || k > r)\r\n            System.exit(-1);\r\n\r\n        int pivot_index = partition(array, l, r);\r\n\r\n        if (k == pivot_index)\r\n            return array[k];\r\n\r\n        else if(k < pivot_index)\r\n            return quickSelect(array, l, pivot_index - 1, k);\r\n\r\n        else\r\n            return quickSelect(array, pivot_index + 1, r, k);\r\n    }\r\n\r\n    /**22\r\n     * Provides pivot final index after partitioning the array between the given indexes\r\n     * @param array the array that will be partitioned.  REQUIRED not empty\r\n     * @param l left index. REQUIRED 0<=l<array length\r\n     * @param r right index. REQUIRED 0<=r<array length\r\n     * @return the index for partitioning the array\r\n     */\r\n    public static int partition(int[] array, int l, int r) {\r\n\r\n        int pivot = array[r];   // Choose pivot\r\n        int i = l - 1;          // i is needed to keep trace of the first element on the left of yhe pivot\r\n        int tmp;                // temporary variable to store an element during swap procedure\r\n\r\n        for(int j = l; j < r; j++)\r\n            if(array[j] < pivot) {\r\n                tmp = array[++i];\r\n                array[i] = array[j];\r\n                array[j] = tmp;\r\n            }\r\n\r\n        tmp = array[++i];\r\n        array[i] = array[r];\r\n        array[r] = tmp;\r\n\r\n        return i;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/QuickSelect.java	(revision 4cdce3d5a8d33fe654cab31611c61819c7c1f080)
++++ src/QuickSelect.java	(date 1587560714244)
+@@ -18,7 +18,6 @@
+      * @param inputLine required as a string of ints divided by one (or more) blank spaces
+      * @return an int array containing all the ints from the input
+      */
+-    /*
+     static int[] getInputVector(String inputLine){
+         String els[] = inputLine.split("\\s+");
+         int length = els.length;
+@@ -28,7 +27,6 @@
+         }
+         return output;
+     }
+-    */
+ 
+ 
+     /**
+Index: src/Time.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import org.apache.poi.EncryptedDocumentException;\r\nimport org.apache.poi.ss.usermodel.*;\r\nimport org.apache.poi.ss.util.CellAddress;\r\nimport java.lang.Math;\r\nimport java.io.File;\r\nimport java.io.FileInputStream;\r\nimport java.io.FileOutputStream;\r\nimport java.io.IOException;\r\n\r\npublic class Time {\r\n\r\n    public static void main(String[] args) {\r\n        try {\r\n            int targetSize;\r\n            double x;\r\n            long maxError = Resolution.getResolution()*101;\r\n            String fileName = \"Time.xlsx\";\r\n            //Initializing a new excel file and sheet in which data will be registered\r\n            FileInputStream inputStream = new FileInputStream(new File(fileName));\r\n            Workbook workbook = WorkbookFactory.create(inputStream);\r\n\r\n            //For each iteration generates a targetsize for the array based on the exponential function\r\n            for(int iter = 0; iter < 50; iter++){\r\n                x = 1.58 * (double)iter;\r\n                targetSize = (int)(Math.pow(1.3, x/1.6)*10);\r\n\r\n                //builds the random filled array based on the target size and sets 4 different values for k\r\n                int[] kArray = {4, (targetSize-1)/2, (int)(Math.log(targetSize)), (targetSize - 5)};\r\n\r\n                //Compute the execution time 50 times for every algorithm choosing a different k every time.\r\n                for (int i = 0; i < 4; i++) {\r\n                    int k = kArray[i];\r\n                    Sheet sheet = workbook.getSheetAt(iter);\r\n                    System.out.println(\"Sheet \" + iter + \"    Array length: \" + sheet.getSheetName() + \"    k: \" + kArray[i]);\r\n                    for (int row_index = 4; row_index < 54; row_index++) {\r\n                        int[] input = RandomTest.randomInput(targetSize);\r\n                        //New line\r\n                        Row row = sheet.getRow(row_index);\r\n                        Cell cell = row.createCell(5*i);\r\n                        //Executes heap select\r\n                        cell.setCellValue(getExTimeHeapSelect(input, k, maxError));\r\n                        cell = row.createCell(5*i + 1);\r\n                        //Executes Quick select\r\n                        cell.setCellValue(getExTimeQuickSelect(input, k, maxError));\r\n                        cell = row.createCell(5*i + 2);\r\n                        //Executes Median of Medians select\r\n                        cell.setCellValue(getExTimeMedianSelect(input, k, maxError));\r\n                    }\r\n                }\r\n            }\r\n\r\n            inputStream.close();\r\n\r\n            //saves the excel file created before\r\n            FileOutputStream outputStream = new FileOutputStream(fileName);\r\n            workbook.write(outputStream);\r\n            workbook.close();\r\n            outputStream.close();\r\n        } catch (IOException | EncryptedDocumentException ex) {\r\n            ex.printStackTrace();\r\n        }\r\n    }\r\n\r\n\r\n    /**\r\n     * Computates execution time for minHeap selection algorithm\r\n     *\r\n     * @return the execution time as a long value\r\n     */\r\n    public static long getExTimeHeapSelect(int[] array, int k, long maxError) {\r\n        long start, end;\r\n        int count = 0;\r\n        start = System.nanoTime();\r\n        do {\r\n            HeapSelect.heapSelect(array, k);\r\n            end = System.nanoTime();\r\n            count++;\r\n        } while (end - start <= maxError);\r\n\r\n        return (end - start) / count;\r\n    }\r\n\r\n\r\n    /**\r\n     * Computates execution time for median of medians selection algorithm\r\n     *\r\n     * @return the execution time as a long value\r\n     */\r\n    public static long getExTimeMedianSelect(int[] array, int k, long maxError) {\r\n        long start, end;\r\n        int count = 0;\r\n        start = System.nanoTime();\r\n        do {\r\n            MedianSelect.MedianOfMedians(array, 0, array.length - 1, false, k);\r\n            end = System.nanoTime();\r\n            count++;\r\n        } while (end - start <= maxError);\r\n\r\n        return (end - start) / count;\r\n    }\r\n\r\n\r\n    /**\r\n     * Computates execution time for quick select algorithm\r\n     *\r\n     * @return the execution time as a long value\r\n     */\r\n    public static long getExTimeQuickSelect(int[] array, int k, long maxError) {\r\n        long start, end;\r\n        int count = 0;\r\n        start = System.nanoTime();\r\n        do {\r\n            QuickSelect.quickSelect(array, 0, array.length - 1, k);\r\n            end = System.nanoTime();\r\n            count++;\r\n        } while (end - start <= maxError);\r\n\r\n        return (end - start) / count;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Time.java	(revision 4cdce3d5a8d33fe654cab31611c61819c7c1f080)
++++ src/Time.java	(date 1587373683208)
+@@ -14,11 +14,29 @@
+             int targetSize;
+             double x;
+             long maxError = Resolution.getResolution()*101;
+-            String fileName = "Time.xlsx";
++            String fileName = "Time_Dominici.xlsx";
+             //Initializing a new excel file and sheet in which data will be registered
+             FileInputStream inputStream = new FileInputStream(new File(fileName));
+             Workbook workbook = WorkbookFactory.create(inputStream);
+ 
++                int k = 26;
++                Sheet sheet = workbook.getSheetAt(0);
++                for (int row_index = 4; row_index < 54; row_index++) {
++                    int[] input = RandomTest.randomInput(100);
++                    //New line
++                    Row row = sheet.createRow(row_index);
++                    Cell cell = row.createCell(0);
++                    //Executes heap select
++                    cell.setCellValue(getExTimeHeapSelect(input, k, maxError));
++                    cell = row.createCell(1);
++                    //Executes Quick select
++                    cell.setCellValue(getExTimeQuickSelect(input, k, maxError));
++                    cell = row.createCell(2);
++                    //Executes Median of Medians select
++                    cell.setCellValue(getExTimeMedianSelect(input, k, maxError));
++                }
++            /*
++
+             //For each iteration generates a targetsize for the array based on the exponential function
+             for(int iter = 0; iter < 50; iter++){
+                 x = 1.58 * (double)iter;
+@@ -48,6 +66,7 @@
+                     }
+                 }
+             }
++             */
+ 
+             inputStream.close();
+ 
+Index: .idea/codeStyles/Project.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/codeStyles/Project.xml	(date 1587560674150)
++++ .idea/codeStyles/Project.xml	(date 1587560674150)
+@@ -0,0 +1,7 @@
++<component name="ProjectCodeStyleConfiguration">
++  <code_scheme name="Project" version="173">
++    <ScalaCodeStyleSettings>
++      <option name="MULTILINE_STRING_CLOSING_QUOTES_ON_NEW_LINE" value="true" />
++    </ScalaCodeStyleSettings>
++  </code_scheme>
++</component>
+\ No newline at end of file

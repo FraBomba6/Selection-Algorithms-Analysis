@@ -29,7 +29,7 @@ public class Time {
                 targetSize = (int)(Math.pow(1.3, x/1.6)*10);
 
                 //builds the random filled array based on the target size and sets 4 different values for k
-                int[] kArray = {4, (targetSize-1)/2, (int)(Math.log(targetSize)), (targetSize - 5)};
+                int[] kArray = {5, targetSize/2, (int)(Math.log(targetSize)/Math.log(2)), (targetSize - 5)};
 
                 //Compute the execution time 50 times for every algorithm choosing a different k every time.
                 for (int i = 0; i < 4; i++) {
