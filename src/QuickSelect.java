@@ -18,7 +18,6 @@ public class QuickSelect {
      * @param inputLine required as a string of ints divided by one (or more) blank spaces
      * @return an int array containing all the ints from the input
      */
-    /*
     static int[] getInputVector(String inputLine){
         String els[] = inputLine.split("\\s+");
         int length = els.length;
@@ -28,7 +27,6 @@ public class QuickSelect {
         }
         return output;
     }
-    */
 
 
     /**
