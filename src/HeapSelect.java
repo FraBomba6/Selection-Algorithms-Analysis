@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.util.Collections;
 
 /**
- * Defines pair object
+ * Defines pair object that will be used for storing a pair (key, original position) during heap selection algorithm
  */
 class Pair {
     Integer key;
@@ -77,6 +77,11 @@ public class HeapSelect {
         return output;
     }
 
+    /**
+     * Build the auxiliary data structures basing on the input and runs min/max heapSelect according to input's size
+     * @param array the array with input values. REQUIRED not empty, at least one element
+     * @param k index for the algorithm, REQUIRED 0<=k< array length
+     */
     public static void heapSelect(int[] array, int k){
         Vector<Pair> h1 = new Vector<Pair>(10);
         for (int i : array)
@@ -212,7 +217,6 @@ public class HeapSelect {
             maxHeapify(vector, greatest);
         }
     }
-
 
     /**
      * minHeapify algorithm with O(log n) or O(log k) time complexity

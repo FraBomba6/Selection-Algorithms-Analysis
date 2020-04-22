@@ -2,6 +2,11 @@ import java.util.Collections;
 import java.util.Vector;
 
 public class Resolution {
+
+    /**
+     * Computes the machine's clock resolutions
+     * @return the clock resolution
+     */
     public static Long getResolution(){
         long start, end, res;
         Vector<Long> resolutions = new Vector<>();

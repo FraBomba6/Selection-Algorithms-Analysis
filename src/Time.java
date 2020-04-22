@@ -9,6 +9,10 @@ import java.io.IOException;
 
 public class Time {
 
+    /**
+     * Main algorithm that computes all the execution times for any of the three algorithms with random input and
+     * given k and fills an excel spreadsheet with all the obtained data
+     */
     public static void main(String[] args) {
         try {
             int targetSize;
@@ -63,7 +67,7 @@ public class Time {
 
 
     /**
-     * Computates execution time for minHeap selection algorithm
+     * Computes the execution time for minHeap selection algorithm
      *
      * @return the execution time as a long value
      */
@@ -82,7 +86,7 @@ public class Time {
 
 
     /**
-     * Computates execution time for median of medians selection algorithm
+     * Computes execution time for median of medians selection algorithm
      *
      * @return the execution time as a long value
      */
@@ -101,7 +105,7 @@ public class Time {
 
 
     /**
-     * Computates execution time for quick select algorithm
+     * Computes execution time for quick select algorithm
      *
      * @return the execution time as a long value
      */
