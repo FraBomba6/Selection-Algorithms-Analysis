@@ -1,0 +1,19 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(ggplot2)
+library(readxl)
+```
+
+```{r}
+time <- read_excel("Graphs.xlsx")
+```
+
+```{r}
+ggplot(data = time) +
+  geom_point(mapping = aes(x = l, y = MedQ))
+```
+
