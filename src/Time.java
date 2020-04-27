@@ -94,7 +94,7 @@ public class Time {
         int count = 0;
         start = System.nanoTime();
         do {
-            MedianSelect.medianSelect(array, 0, array.length - 1, false, --k);
+            MedianSelect_old.medianSelect(array, 0, array.length - 1, false, --k);
             end = System.nanoTime();
             count++;
         } while (end - start <= maxError);

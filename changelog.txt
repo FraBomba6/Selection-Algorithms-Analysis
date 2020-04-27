@@ -8,3 +8,12 @@
 - Modificata la funzione per il calcolo delle lunghezze sia in Excel che in Time
 
 - Ricalcolati i tempi sulle nuove lunghezze
+
+27 APRILE 2020
+- HeapSelect ha ricevuto piccole modifiche di ottimizzazione del codice
+
+- La selezione ora avviene con una funzione principale (medianSelect) e una secondaria (mediansOfMedians) ricorsiva che gestisce le mediane sempre in modo in-place
+
+- A medianSelect ora basta passare l'array, l, r e k (diminuito alla chiamata di 1)
+
+- La funzione medianOfMedians riordina ricorsivamente le mediane in modo che all'ultima ricorsione la mediana delle mediane si trovi in posizione l e richiede come parametri l'array e i due indici tra cui sono contenute le mediane

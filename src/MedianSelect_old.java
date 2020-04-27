@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class MedianSelect {
+public class MedianSelect_old {/*
     public static void main(String[] args) {
         System.out.print("Enter an array of integers: ");
         Scanner input = new Scanner(System.in);
@@ -9,8 +9,8 @@ public class MedianSelect {
         System.out.print("Enter an integer: ");
         int k = input.nextInt();
 
-        System.out.print(array[medianSelect(array, 0, array.length - 1, --k)] + "\n");
-    }
+        System.out.print(array[medianSelect(array, 0, array.length - 1, false, --k)] + "\n");
+    }*/
 
     /**
      * Splits the input line in all the different values
@@ -33,10 +33,11 @@ public class MedianSelect {
      * @param array the array with input values. REQUIRED not empty, at least one element
      * @param l left index. REQUIRED 0<=l< array length
      * @param r right index. REQUIRED 0<=r< array length
+     * @param areMedians true only if I'm treating median of medians, othwerwise it's false
      * @param k index for the algorithm, REQUIRED 0<=k< array length
      * @return
      */
-    public static int medianSelect(int[] array, int l, int r, int k) {
+    public static int medianSelect(int[] array, int l, int r, boolean areMedians, int k) {
         int i = l;
         int lastGroup = r - (r - l) % 5;
         while(i < r) {
@@ -44,8 +45,14 @@ public class MedianSelect {
             i+=5;
         }
 
-        if(r-l < 5)
-            return k;
+        if(r-l < 5) {
+            if(areMedians) {
+                swap(array, l, (r-l+1)/2 + l);
+                return l;
+            }
+            else
+                return k;
+        }
 
         i = l + 2;
         int count = 0;
@@ -53,49 +60,22 @@ public class MedianSelect {
             swap(array, i, l + count++);
             if (i < lastGroup - 3)
                 i += 5;
-            else {
+            else
                 i += 3 + (r - lastGroup) / 2;
-                swap(array, i, l + count);
-                break;
-            }
         }
 
-        medianOfMedians(array, l, l + count);
+        int medianOfMedians = medianSelect(array, l, l + count, true, k);
 
-        int pivot = partition(array, l, r);
-        if(pivot == k)
-            return pivot;
-        else if (k < pivot)
-            return medianSelect(array, l, pivot - 1, k);
-        else
-            return medianSelect(array, pivot + 1, r, k);
-    }
-
-    public static void medianOfMedians(int[] array, int l, int r) {
-        int i = l;
-        int lastGroup = r - (r - l) % 5;
-        while(i < r) {
-            InsertionSort(array, i, i == lastGroup ? r : (i + 4));
-            i+=5;
+        if(!areMedians){
+            int pivot = partition(array, l, r);
+            if(pivot == k)
+                return pivot;
+            else if (k < pivot)
+                return medianSelect(array, l, pivot - 1, false, k);
+            else
+                return medianSelect(array, pivot + 1, r, false, k);
         }
-
-        if(r - l >= 5) {
-            i = l + 2;
-            int count = 0;
-            while(i <= r ) {
-                swap(array, i, l + count++);
-                if (i < lastGroup - 3)
-                    i += 5;
-                else {
-                    i += 3 + (r - lastGroup) / 2;
-                    swap(array, i, l + count);
-                    break;
-                }
-            }
-            medianOfMedians(array, l, l + count);
-        }
-        else
-            swap(array, l, (r-l+1)/2 + l);
+        return 0;
     }
 
 
