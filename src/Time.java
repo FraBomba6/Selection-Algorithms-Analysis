@@ -1,6 +1,6 @@
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.util.CellAddress;
+
 import java.lang.Math;
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,8 +25,7 @@ public class Time {
 
             //For each iteration generates a targetsize for the array based on the exponential function
             for(int iter = 0; iter < 50; iter++){
-                x = 1.58 * (double)iter;
-                targetSize = (int)(Math.pow(1.3, x/1.6)*10);
+                targetSize = (int)(Math.pow(1.3, iter*0.9875)*10); 
 
                 //builds the random filled array based on the target size and sets 4 different values for k
                 int[] kArray = {5, targetSize/2, (int)(Math.log(targetSize)/Math.log(2)), (targetSize - 5)};
@@ -95,7 +94,7 @@ public class Time {
         int count = 0;
         start = System.nanoTime();
         do {
-            MedianSelect.MedianOfMedians(array, 0, array.length - 1, false, k);
+            MedianSelect.medianSelect(array, 0, array.length - 1, false, --k);
             end = System.nanoTime();
             count++;
         } while (end - start <= maxError);

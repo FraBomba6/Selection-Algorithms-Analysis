@@ -100,7 +100,7 @@ public class HeapSelect {
         else
             maxHeapSelect(h1, h2, k);
 
-        System.out.println(h2.get(0).getKey());
+        //System.out.println(h2.get(0).getKey());
     }
 
     /**

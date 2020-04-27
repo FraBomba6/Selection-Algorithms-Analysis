@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
-public class MedianSelect {
-    /*
+public class MedianSelect {/*
     public static void main(String[] args) {
         System.out.print("Enter an array of integers: ");
         Scanner input = new Scanner(System.in);
@@ -10,9 +9,8 @@ public class MedianSelect {
         System.out.print("Enter an integer: ");
         int k = input.nextInt();
 
-        System.out.print(array[MedianOfMedians(array, 0, array.length - 1, false, --k)] + "\n");
-    }
-    */
+        System.out.print(array[medianSelect(array, 0, array.length - 1, false, --k)] + "\n");
+    }*/
 
     /**
      * Splits the input line in all the different values
@@ -35,19 +33,20 @@ public class MedianSelect {
      * @param array the array with input values. REQUIRED not empty, at least one element
      * @param l left index. REQUIRED 0<=l< array length
      * @param r right index. REQUIRED 0<=r< array length
-     * @param p true only if I'm treating median of medians, othwerwise it's false
+     * @param areMedians true only if I'm treating median of medians, othwerwise it's false
      * @param k index for the algorithm, REQUIRED 0<=k< array length
      * @return
      */
-    public static int MedianOfMedians(int[] array, int l, int r, boolean p, int k) {
+    public static int medianSelect(int[] array, int l, int r, boolean areMedians, int k) {
         int i = l;
-        int last5 = r - (r - l) % 5;
-        while(i < r) { //O(n)
-            InsertionSort(array, i, i == last5 ? (i+=(r-l)%5 + 1) : (i+=5));
+        int lastGroup = r - (r - l) % 5;
+        while(i < r) {
+            InsertionSort(array, i, i == lastGroup ? r : (i + 4));
+            i+=5;
         }
 
         if(r-l < 5) {
-            if(p) {
+            if(areMedians) {
                 swap(array, l, (r-l+1)/2 + l);
                 return l;
             }
@@ -59,26 +58,23 @@ public class MedianSelect {
         int count = 0;
         while(i <= r ) {
             swap(array, i, l + count++);
-            if (i < last5 - 3)
+            if (i < lastGroup - 3)
                 i += 5;
             else
-                i += 3 + ((r - l) % 5) / 2;
+                i += 3 + (r - lastGroup) / 2;
         }
 
-        int pivot = MedianOfMedians(array, l, (r - l)/5 + l, true, k);
+        int medianOfMedians = medianSelect(array, l, l + count, true, k);
 
-        if(!p){
-            pivot = partition(array, pivot, r);
-            if(pivot == k) {
+        if(!areMedians){
+            int pivot = partition(array, l, r);
+            if(pivot == k)
                 return pivot;
-            }
-            else if (k < pivot) {
-                return MedianOfMedians(array, l, pivot - 1, false, k);
-            }
-            else {
-                return MedianOfMedians(array, pivot + 1, r, false, k);
-            }
-        } else return pivot;
+            else if (k < pivot)
+                return medianSelect(array, l, pivot - 1, false, k);
+            else
+                return medianSelect(array, pivot + 1, r, false, k);
+        } else return medianOfMedians;
     }
 
 
@@ -90,7 +86,7 @@ public class MedianSelect {
      */
     public static void InsertionSort(int[] array, int l, int r) {
         int i = l + 1;
-        while(i < r) {
+        while(i <= r) {
             int j = i;
             while (j > l && array[j - 1] > array[j]) {
                 swap(array, j, j-1);
