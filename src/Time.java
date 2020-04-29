@@ -16,7 +16,6 @@ public class Time {
     public static void main(String[] args) {
         try {
             int targetSize;
-            double x;
             long maxError = Resolution.getResolution()*101;
             String fileName = "Time.xlsx";
             //Initializing a new excel file and sheet in which data will be registered
@@ -25,7 +24,7 @@ public class Time {
 
             //For each iteration generates a targetsize for the array based on the exponential function
             for(int iter = 0; iter < 50; iter++){
-                targetSize = (int)(Math.pow(1.3, iter*0.9875)*10); 
+                targetSize = (int)(Math.pow(1.25, iter)*10);
 
                 //builds the random filled array based on the target size and sets 4 different values for k
                 int[] kArray = {5, targetSize/2, (int)(Math.log(targetSize)/Math.log(2)), (targetSize - 5)};

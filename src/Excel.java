@@ -21,9 +21,8 @@ public class Excel {
 
             //Fills the excel sheet
             for (int i = 1; i < 50; i++) {
-                double x = 1.58 * i;
                 Sheet sheet = workbook.cloneSheet(0);
-                workbook.setSheetName(i, String.valueOf((int)(Math.pow(1.3, x/1.6)*10)));
+                workbook.setSheetName(i, String.valueOf((int)(Math.pow(1.25, i)*10)));
             }
             //terminates after filling the sheet with 100 time execution's observations for each algorithm
 
