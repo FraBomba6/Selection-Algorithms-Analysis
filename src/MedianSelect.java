@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class MedianSelect {
+public class MedianSelect {/*
     public static void main(String[] args) {
         System.out.print("Enter an array of integers: ");
         Scanner input = new Scanner(System.in);
@@ -10,7 +10,7 @@ public class MedianSelect {
         int k = input.nextInt();
 
         System.out.print(array[medianSelect(array, 0, array.length - 1, --k)] + "\n");
-    }
+    }*/
 
     /**
      * Splits the input line in all the different values
@@ -37,25 +37,25 @@ public class MedianSelect {
      * @return
      */
     public static int medianSelect(int[] array, int l, int r, int k) {
-        int i = l;
+        int first = l;
         int lastGroup = r - (r - l) % 5;
-        while(i < r) {
-            InsertionSort(array, i, i == lastGroup ? r : (i + 4));
-            i+=5;
+        while(first < r) {
+            InsertionSort(array, first, first == lastGroup ? r : (first + 4));
+            first+=5;
         }
 
         if(r-l < 5)
             return k;
 
-        i = l + 2;
+        int median = l + 2;
         int count = 0;
-        while(i <= r ) {
-            swap(array, i, l + count++);
-            if (i < lastGroup - 3)
-                i += 5;
+        while(median <= r ) {
+            swap(array, median, l + count++);
+            if (median < lastGroup - 3)
+                median += 5;
             else {
-                i += 3 + (r - lastGroup) / 2;
-                swap(array, i, l + count);
+                median += 3 + (r - lastGroup) / 2;
+                swap(array, median, l + count);
                 break;
             }
         }
@@ -95,7 +95,7 @@ public class MedianSelect {
             medianOfMedians(array, l, l + count);
         }
         else
-            swap(array, l, (r-l+1)/2 + l);
+            swap(array, l, (r-l)/2 + l);
     }
 
 
