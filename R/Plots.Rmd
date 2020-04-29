@@ -6,20 +6,24 @@ output: html_notebook
 ```{r}
 library(ggplot2)
 library(tidyverse)
+library(readxl)
 ```
 
 ```{r}
-time <- read.csv("Time.csv")
+# Creazione del csv dal xlsx
+# time <- write_csv(read_excel("../Time.xlsx", 51), "Time.csv")
 
 medians <- time %>%
-  select(length, Med_Quick, Med_Med, Med_Heap) %>%
-  gather(key = "algorithm", value = "med_time", -length)
+  select(array_length, Quick, Med, Heap) %>%
+  gather(key = "algorithm", value = "med_time", -array_length)
 ```
 
 ```{r}
-ggplot(data = medians, aes(x = length)) +
+ggplot(data = medians, aes(x = array_length)) +
   geom_point(mapping = aes(y = med_time, color = algorithm)) +
   labs(y = "Execution time") +
-  theme(legend.position = "none")
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 10)) +
+  theme(legend.position = c(.10, .90), legend.background = element_rect(fill = "transparent"), legend.title=element_blank())
 ```
 
