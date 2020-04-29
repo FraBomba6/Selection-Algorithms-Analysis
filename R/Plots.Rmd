@@ -9,11 +9,15 @@ library(readxl)
 ```
 
 ```{r}
-time <- read_excel("Graphs.xlsx")
+time <- read.csv("Time.csv")
 ```
 
 ```{r}
-ggplot(data = time) +
-  geom_point(mapping = aes(x = l, y = MedQ))
+ggplot(data = time, aes(x = length)) +
+  geom_point(mapping = aes(y = Med_Quick, color = "Medians of QuickSelect")) +
+  geom_point(mapping = aes(y = Med_Med, color = "Medians of MedianSelect")) +
+  geom_point(mapping = aes(y = Med_Heap, color = "Medians of HeapSelect")) +
+  labs(y = "Execution time") +
+  theme(legend.position = "none")
 ```
 
