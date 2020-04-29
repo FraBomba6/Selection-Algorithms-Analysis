@@ -6,17 +6,20 @@ output: html_notebook
 ```{r}
 library(ggplot2)
 library(readxl)
+library(tidyverse)
 ```
 
 ```{r}
 time <- read.csv("Time.csv")
+
+medians <- time %>%
+  select(length, Med_Quick, Med_Med, Med_Heap) %>%
+  gather(key = "algorithm", value = "med_time", -length)
 ```
 
 ```{r}
-ggplot(data = time, aes(x = length)) +
-  geom_point(mapping = aes(y = Med_Quick, color = "Medians of QuickSelect")) +
-  geom_point(mapping = aes(y = Med_Med, color = "Medians of MedianSelect")) +
-  geom_point(mapping = aes(y = Med_Heap, color = "Medians of HeapSelect")) +
+ggplot(data = medians, aes(x = length)) +
+  geom_point(mapping = aes(y = med_time, color = algorithm)) +
   labs(y = "Execution time") +
   theme(legend.position = "none")
 ```
