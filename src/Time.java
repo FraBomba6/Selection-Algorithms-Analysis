@@ -22,6 +22,14 @@ public class Time {
             FileInputStream inputStream = new FileInputStream(new File(fileName));
             Workbook workbook = WorkbookFactory.create(inputStream);
 
+            System.out.println("Warming up JVM...");
+            for(int repetition = 10; repetition < 100000; repetition+=50) {
+                int[] warmUpArray = RandomTest.randomInput(repetition);
+                getExTimeHeapSelect(warmUpArray, repetition/2, maxError);
+                getExTimeMedianSelect(warmUpArray, repetition/2, maxError);
+                getExTimeQuickSelect(warmUpArray, repetition/2, maxError);
+                }
+
             //For each iteration generates a targetsize for the array based on the exponential function
             for(int iter = 0; iter < 50; iter++){
                 targetSize = (int)(Math.pow(1.25, iter)*10);
@@ -39,6 +47,7 @@ public class Time {
                         //New line
                         Row row = sheet.getRow(row_index);
                         Cell cell = row.createCell(5*i);
+
                         //Executes heap select
                         cell.setCellValue(getExTimeHeapSelect(input, k, maxError));
                         cell = row.createCell(5*i + 1);
@@ -93,7 +102,7 @@ public class Time {
         int count = 0;
         start = System.nanoTime();
         do {
-            MedianSelect_old.medianSelect(array, 0, array.length - 1, false, --k);
+            MedianSelect.medianSelect(array, 0, array.length - 1, k-1);
             end = System.nanoTime();
             count++;
         } while (end - start <= maxError);
@@ -112,7 +121,7 @@ public class Time {
         int count = 0;
         start = System.nanoTime();
         do {
-            QuickSelect.quickSelect(array, 0, array.length - 1, k);
+            QuickSelect.quickSelect(array, 0, array.length - 1, k-1);
             end = System.nanoTime();
             count++;
         } while (end - start <= maxError);
