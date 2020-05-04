@@ -23,7 +23,7 @@ public class Time {
             Workbook workbook = WorkbookFactory.create(inputStream);
 
             System.out.println("Warming up JVM...");
-            for(int repetition = 10; repetition < 100000; repetition+=50) {
+            for(int repetition = 10; repetition < 200000; repetition+=50) {
                 int[] warmUpArray = RandomTest.randomInput(repetition);
                 getExTimeHeapSelect(warmUpArray, repetition/2, maxError);
                 getExTimeMedianSelect(warmUpArray, repetition/2, maxError);

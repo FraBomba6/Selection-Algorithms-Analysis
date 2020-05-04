@@ -1,10 +1,10 @@
 import java.util.Vector;
-import java.util.Scanner;
 import java.util.Collections;
 
 /**
  * Defines pair object that will be used for storing a pair (key, original position) during heap selection algorithm
  */
+
 class Pair {
     Integer key;
     Integer position;
