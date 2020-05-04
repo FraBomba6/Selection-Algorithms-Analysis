@@ -49,6 +49,24 @@ class Pair {
     }
 }
 
+class Node {
+    int key;
+    int value;
+    Node left;
+    Node right;
+
+    Node(int key, int value){
+        this.key = key;
+        this.value = value;
+        this.left = null;
+        this.right = null;
+    }
+
+    boolean isLeaf(){
+        return (this.left == null && this.right == null);
+    }
+}
+
 public class HeapSelect {
     /*
     public static void main(String[] args) {
