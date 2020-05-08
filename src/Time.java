@@ -28,7 +28,7 @@ public class Time {
                 getExTimeHeapSelect(warmUpArray, repetition/2, maxError);
                 getExTimeMedianSelect(warmUpArray, repetition/2, maxError);
                 getExTimeQuickSelect(warmUpArray, repetition/2, maxError);
-                }
+            }
 
             //For each iteration generates a targetsize for the array based on the exponential function
             for(int iter = 0; iter < 50; iter++){
@@ -83,7 +83,7 @@ public class Time {
         int count = 0;
         start = System.nanoTime();
         do {
-            HeapSelect.heapSelect(array, k);
+            HeapSelect.HeapSelect(array, k-1);
             end = System.nanoTime();
             count++;
         } while (end - start <= maxError);
