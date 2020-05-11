@@ -5,6 +5,10 @@ class Pair {
     Integer position;
     Integer key;
 
+    /**
+     * Constructor for Pair object
+     * @param key the value for the pair
+     */
     Pair(Integer key) {
         this.key = key;
         this.position = null;
@@ -36,6 +40,11 @@ public class HeapSelect {/*
         return output;
     }
 
+    /**
+     * Builds auxiliary data structures and Heap Selection algorithm with min or max Heap depending on input
+     * @param array the input array, REQUIRED as a valid input
+     * @param k the index (from 1 to array size) REQUIRED as a valid index
+     */
     public static void HeapSelect(int[] array, int k) {
         int h1_size = array.length;
         boolean isMinHeap = false;
@@ -57,6 +66,15 @@ public class HeapSelect {/*
         Select(h1, h2, k, isMinHeap);
     }
 
+
+    /**
+     * Selects the k-th element using heap 1 and heap 2
+     * @param h1 the first heap
+     * @param h2 the second heap (auxiliary one)
+     * @param k the index. REQUIRED as a valid index
+     * @param isMinHeap true if the heap is a minHeap, false if is a maxHeap
+     * @return the key of the root node from the auxiliary heap
+     */
     private static int Select(ArrayList<Pair> h1, ArrayList<Pair> h2, int k, boolean isMinHeap) {
         for(int i = 0; i < k; i++){
             int root_position = h2.get(0).position;
@@ -73,6 +91,13 @@ public class HeapSelect {/*
         return h2.get(0).key;
     }
 
+
+    /**
+     * Inserts a new element in the heap
+     * @param heap the heap in which the new element will be added
+     * @param node the pair node that will be added
+     * @param isMinHeap true if the heap is a minHeap, false if is a maxHeap
+     */
     private static void insert(ArrayList<Pair> heap, Pair node, boolean isMinHeap) {
         heap.add(node);
         if(heap.size() > 1) {
@@ -93,6 +118,11 @@ public class HeapSelect {/*
         }
     }
 
+    /**
+     * Extracts root node from the heap and ensures that the heap mantains its properties
+     * @param h2 the heap. REQUIRED with at least one node (the root one)
+     * @param isMinHeap true if the heap is a minHeap, false if is a maxHeap
+     */
     private static void extract(ArrayList<Pair> h2, boolean isMinHeap) {
         int index_lastObj = h2.size() - 1;
         Collections.swap(h2, 0, index_lastObj);
@@ -103,6 +133,13 @@ public class HeapSelect {/*
             max_heapify(h2, 0, h2.size());
     }
 
+
+    /**
+     * Builds the heap performing minHeapify or maxHeapify according to the heap properties
+     * @param h1 the heap
+     * @param h1_size the size of the heap
+     * @param isMinHeap true if the heap is a minHeap, false if is a maxHeap
+     */
     private static void build_heap(ArrayList<Pair> h1, int h1_size, boolean isMinHeap) {
         for(int i = (h1_size / 2) - 1; i >= 0; i--) {
             if(isMinHeap)
@@ -112,6 +149,13 @@ public class HeapSelect {/*
         }
     }
 
+
+    /**
+     * MinHeapify algorithm
+     * @param h1 the heap
+     * @param i index for the smallest element in the heap. REQUIRED as a valid index
+     * @param h1_size the size of the heap. REQUIRED as a valid size
+     */
     private static void min_heapify(ArrayList<Pair> h1, int i, int h1_size) {
         int smallest = i;
         int left = 2 * i + 1;
@@ -127,6 +171,13 @@ public class HeapSelect {/*
         }
     }
 
+
+    /**
+     * MaxHeapify algorithm
+     * @param h1 the heap
+     * @param i index for the smallest element in the heap. REQUIRED as a valid index
+     * @param h1_size the size of the heap. REQUIRED as a valid size
+     */
     private static void max_heapify(ArrayList<Pair> h1, int i, int h1_size) {
         int largest = i;
         int left = 2 * i + 1;
