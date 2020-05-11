@@ -64,6 +64,7 @@ ggplot(data = medians, aes(x = array_length, y = ex_time, color = algorithm)) +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
   scale_y_continuous(breaks = seq(0, 0.042, 0.002)) +
   theme(legend.position = c(.10, .90), legend.background = element_rect(fill = "transparent"), legend.title=element_blank())
+  ggsave("Grafici/Confronto_Mediane.png")
 ```
 
 ```{r}
@@ -75,6 +76,7 @@ ggplot(data = quick, aes(x = array_length, y = ex_time, color = algorithm)) +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
   scale_y_continuous(breaks = seq(0, 0.0044, 0.0002)) +
   theme(legend.position = c(.10, .90), legend.background = element_rect(fill = "transparent"), legend.title=element_blank())
+ggsave("Grafici/QuickSelect.png")
 ```
 
 ```{r}
@@ -86,6 +88,7 @@ ggplot(data = med, aes(x = array_length, y = ex_time, color = algorithm)) +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
   scale_y_continuous(breaks = scales::pretty_breaks(n = 20)) +
   theme(legend.position = c(.10, .90), legend.background = element_rect(fill = "transparent"), legend.title=element_blank())
+ggsave("Grafici/MedianSelect.png")
 ```
 
 ```{r}
@@ -97,6 +100,7 @@ ggplot(data = heap, aes(x = array_length, y = ex_time, color = algorithm)) +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
   scale_y_continuous(breaks = scales::pretty_breaks(n = 20)) +
   theme(legend.position = c(.10, .90), legend.background = element_rect(fill = "transparent"), legend.title=element_blank())
+ggsave("Grafici/HeapSelect.png")
 ```
 
 ```{r}
@@ -108,6 +112,7 @@ ggplot(data = k5, aes(x = array_length, y = ex_time, color = algorithm)) +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
   scale_y_continuous(breaks = scales::pretty_breaks(n = 20)) +
   theme(legend.position = c(.10, .90), legend.background = element_rect(fill = "transparent"), legend.title=element_blank())
+ggsave("Grafici/Confronto_k_5.png")
 ```
 
 ```{r}
@@ -119,6 +124,7 @@ ggplot(data = `k_n/2`, aes(x = array_length, y = ex_time, color = algorithm)) +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
   scale_y_continuous(breaks = scales::pretty_breaks(n = 20)) +
   theme(legend.position = c(.10, .90), legend.background = element_rect(fill = "transparent"), legend.title=element_blank())
+ggsave("Grafici/Confronto_k_n_mezzi.png")
 ```
 
 ```{r}
@@ -130,6 +136,7 @@ ggplot(data = k_log_n, aes(x = array_length, y = ex_time, color = algorithm)) +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
   scale_y_continuous(breaks = scales::pretty_breaks(n = 20)) +
   theme(legend.position = c(.10, .90), legend.background = element_rect(fill = "transparent"), legend.title=element_blank())
+ggsave("Grafici/Confronto_k_log_n.png")
 ```
 
 ```{r}
@@ -141,4 +148,5 @@ ggplot(data = `k_n-5`, aes(x = array_length, y = ex_time, color = algorithm)) +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
   scale_y_continuous(breaks = scales::pretty_breaks(n = 20)) +
   theme(legend.position = c(.10, .90), legend.background = element_rect(fill = "transparent"), legend.title=element_blank())
+ggsave("Grafici/Confronto_k_n_meno_5.png")
 ```
