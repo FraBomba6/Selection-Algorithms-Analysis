@@ -44,7 +44,6 @@ public class HeapSelect {/*
         else
             k = h1_size - 1 - k;
 
-
         ArrayList<Pair> h1 = new ArrayList<>(h1_size);
         for(int element : array)
             h1.add(new Pair(element));
