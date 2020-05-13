@@ -22,16 +22,21 @@ public class Time {
             FileInputStream inputStream = new FileInputStream(new File(fileName));
             Workbook workbook = WorkbookFactory.create(inputStream);
 
-            int warmUpSize = 100000;
-            int[] warmUpArray = RandomTest.randomInput(warmUpSize);
-            int[] warmUpK= {5, warmUpSize/2, (int)(Math.log(warmUpSize)/Math.log(2)), (warmUpSize - 5)};
-            for (int i = 0; i < 4; i++) {
-                int k = warmUpK[i];
-                getExTimeHeapSelect(warmUpArray, k, maxError);
-                getExTimeMedianSelect(warmUpArray, k, maxError);
-                getExTimeQuickSelect(warmUpArray, k, maxError);
+            int count = 0;
+            for(int length = 0; length < 60; length+=10) {
+                int warmUpSize = (int)(Math.pow(1.25, length)*10);
+                for (int iter_length = 0; iter_length < 50; iter_length++) {
+                    int[] warmUpArray = RandomTest.randomInput(warmUpSize);
+                    int[] warmUpK = {5, warmUpSize / 2, (int) (Math.log(warmUpSize) / Math.log(2)), (warmUpSize - 4)};
+                    for (int iter_k = 0; iter_k < 4; iter_k++) {
+                        System.out.print("\rWarmingup JVM... " + ++count*100/(6*50*4) + "%");
+                        int wK = warmUpK[iter_k];
+                        getExTimeHeapSelect(warmUpArray, wK, maxError);
+                        getExTimeMedianSelect(warmUpArray, wK, maxError);
+                        getExTimeQuickSelect(warmUpArray, wK, maxError);
+                    }
+                }
             }
-            System.out.print("Warmup done!");
 
             //For each iteration generates a targetsize for the array based on the exponential function
             for(int iter = 0; iter < 50; iter++){
@@ -52,13 +57,16 @@ public class Time {
                         Cell cell = row.createCell(5*i);
 
                         //Executes heap select
-                        cell.setCellValue(getExTimeHeapSelect(input, k, maxError));
+                        long ExTimeHeapSelect = getExTimeHeapSelect(input, k, maxError);
+                        cell.setCellValue(ExTimeHeapSelect);
                         cell = row.createCell(5*i + 1);
                         //Executes Quick select
-                        cell.setCellValue(getExTimeQuickSelect(input, k, maxError));
+                        long ExTimeQuickSelect = getExTimeQuickSelect(input, k, maxError);
+                        cell.setCellValue(ExTimeQuickSelect);
                         cell = row.createCell(5*i + 2);
                         //Executes Median of Medians select
-                        cell.setCellValue(getExTimeMedianSelect(input, k, maxError));
+                        long ExTimeMedianSelect = getExTimeMedianSelect(input, k, maxError);
+                        cell.setCellValue(ExTimeMedianSelect);
                     }
                 }
             }
@@ -74,7 +82,6 @@ public class Time {
             ex.printStackTrace();
         }
     }
-
 
     /**
      * Computes the execution time for minHeap selection algorithm
