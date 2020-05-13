@@ -22,13 +22,16 @@ public class Time {
             FileInputStream inputStream = new FileInputStream(new File(fileName));
             Workbook workbook = WorkbookFactory.create(inputStream);
 
-            for(int repetition = 10; repetition < 100000; repetition+=10) {
-                System.out.print("\rWarming up JVM... " + repetition*100/100000 + "%");
-                int[] warmUpArray = RandomTest.randomInput(repetition);
-                getExTimeHeapSelect(warmUpArray, repetition/2, maxError);
-                getExTimeMedianSelect(warmUpArray, repetition/2, maxError);
-                getExTimeQuickSelect(warmUpArray, repetition/2, maxError);
+            int warmUpSize = 100000;
+            int[] warmUpArray = RandomTest.randomInput(warmUpSize);
+            int[] warmUpK= {5, warmUpSize/2, (int)(Math.log(warmUpSize)/Math.log(2)), (warmUpSize - 5)};
+            for (int i = 0; i < 4; i++) {
+                int k = warmUpK[i];
+                getExTimeHeapSelect(warmUpArray, k, maxError);
+                getExTimeMedianSelect(warmUpArray, k, maxError);
+                getExTimeQuickSelect(warmUpArray, k, maxError);
             }
+            System.out.print("Warmup done!");
 
             //For each iteration generates a targetsize for the array based on the exponential function
             for(int iter = 0; iter < 50; iter++){
