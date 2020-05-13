@@ -1,0 +1,87 @@
+Index: src/HeapSelect.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.util.ArrayList;\r\nimport java.util.Collections;\r\n\r\nclass Pair {\r\n    Integer position;\r\n    Integer key;\r\n\r\n    Pair(Integer key) {\r\n        this.key = key;\r\n        this.position = null;\r\n    }\r\n}\r\n\r\npublic class HeapSelect {/*\r\n    public static void main(String[] args) {\r\n        System.out.print(\"Enter an array of integers: \");\r\n        Scanner input = new Scanner(System.in);\r\n        String inVector =  input.nextLine();\r\n        int[] array = getInputVector(inVector);\r\n        int k = input.nextInt();\r\n        newHeapSelect(array, k - 1);\r\n    }*/\r\n\r\n    /**\r\n     * Splits the input line in all the different values\r\n     * @param inputLine required as a string of ints divided by one (or more) blank spaces\r\n     * @return an int array containing all the ints from the input\r\n     */\r\n    static int[] getInputVector(String inputLine) {\r\n        String els[] = inputLine.split(\"\\\\s+\");\r\n        int length = els.length;\r\n        int[] output = new int[length];\r\n        for (int i = 0; i < length; i++) {\r\n            output[i] = Integer.parseInt(els[i]);\r\n        }\r\n        return output;\r\n    }\r\n\r\n    public static void HeapSelect(int[] array, int k) {\r\n        int h1_size = array.length;\r\n        boolean isMinHeap = false;\r\n        if(k < h1_size / 2)\r\n            isMinHeap = true;\r\n        else\r\n            k = h1_size - 1 - k;\r\n\r\n        ArrayList<Pair> h1 = new ArrayList<>(h1_size);\r\n        for(int element : array)\r\n            h1.add(new Pair(element));\r\n        build_heap(h1, h1_size, isMinHeap);\r\n        for(int i = 0; i < h1_size; i++)\r\n            h1.get(i).position = i;\r\n\r\n        ArrayList<Pair> h2 = new ArrayList<>(k+1);\r\n        h2.add(h1.get(0));\r\n\r\n        Select(h1, h2, k, isMinHeap);\r\n    }\r\n\r\n    private static int Select(ArrayList<Pair> h1, ArrayList<Pair> h2, int k, boolean isMinHeap) {\r\n        for(int i = 0; i < k; i++){\r\n            int root_position = h2.get(0).position;\r\n            int left = root_position * 2 + 1;\r\n            int right = root_position * 2 + 2;\r\n\r\n            extract(h2, isMinHeap);\r\n\r\n            if(left < h1.size())\r\n                insert(h2, h1.get(left), isMinHeap);\r\n            if(right < h1.size())\r\n                insert(h2, h1.get(right), isMinHeap);\r\n        }\r\n        return h2.get(0).key;\r\n    }\r\n\r\n    private static void insert(ArrayList<Pair> heap, Pair node, boolean isMinHeap) {\r\n        heap.add(node);\r\n        if(heap.size() > 1) {\r\n            int current_node = heap.size() - 1;\r\n            int parent_node = (current_node - 1) / 2;\r\n            if (isMinHeap)\r\n                while (current_node > 0 && heap.get(parent_node).key > heap.get(current_node).key) {\r\n                    Collections.swap(heap, parent_node, current_node);\r\n                    current_node = parent_node;\r\n                    parent_node = (current_node - 1) / 2 ;\r\n                }\r\n            else\r\n                while (current_node > 0 && heap.get(parent_node).key < heap.get(current_node).key) {\r\n                    Collections.swap(heap, parent_node, current_node);\r\n                    current_node = parent_node;\r\n                    parent_node = (current_node - 1) / 2;\r\n                }\r\n        }\r\n    }\r\n\r\n    private static void extract(ArrayList<Pair> h2, boolean isMinHeap) {\r\n        int index_lastObj = h2.size() - 1;\r\n        Collections.swap(h2, 0, index_lastObj);\r\n        h2.remove(index_lastObj);\r\n        if(isMinHeap)\r\n            min_heapify(h2, 0, h2.size());\r\n        else\r\n            max_heapify(h2, 0, h2.size());\r\n    }\r\n\r\n    private static void build_heap(ArrayList<Pair> h1, int h1_size, boolean isMinHeap) {\r\n        for(int i = (h1_size / 2) - 1; i >= 0; i--) {\r\n            if(isMinHeap)\r\n                min_heapify(h1, i, h1_size);\r\n            else\r\n                max_heapify(h1, i, h1_size);\r\n        }\r\n    }\r\n\r\n    private static void min_heapify(ArrayList<Pair> h1, int i, int h1_size) {\r\n        int smallest = i;\r\n        int left = 2 * i + 1;\r\n        int right = 2 * i + 2;\r\n\r\n        if(left < h1_size && h1.get(left).key < h1.get(smallest).key)\r\n            smallest = left;\r\n        if(right < h1_size && h1.get(right).key < h1.get(smallest).key)\r\n            smallest = right;\r\n        if(smallest != i) {\r\n            Collections.swap(h1, smallest, i);\r\n            min_heapify(h1, smallest, h1_size);\r\n        }\r\n    }\r\n\r\n    private static void max_heapify(ArrayList<Pair> h1, int i, int h1_size) {\r\n        int largest = i;\r\n        int left = 2 * i + 1;\r\n        int right = 2 * i + 2;\r\n\r\n        if(left < h1_size && h1.get(left).key > h1.get(largest).key)\r\n            largest = left;\r\n        if(right < h1_size && h1.get(right).key > h1.get(largest).key)\r\n            largest = right;\r\n        if(largest != i) {\r\n            Collections.swap(h1, largest, i);\r\n            max_heapify(h1, largest, h1_size);\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/HeapSelect.java	(revision a42a1bc3812f71e2b2857a5979a0351d3f84f834)
++++ src/HeapSelect.java	(date 1589199722265)
+@@ -1,5 +1,6 @@
+ import java.util.ArrayList;
+ import java.util.Collections;
++import java.util.Scanner;
+ 
+ class Pair {
+     Integer position;
+@@ -11,15 +12,15 @@
+     }
+ }
+ 
+-public class HeapSelect {/*
++public class HeapSelect {
+     public static void main(String[] args) {
+         System.out.print("Enter an array of integers: ");
+         Scanner input = new Scanner(System.in);
+         String inVector =  input.nextLine();
+         int[] array = getInputVector(inVector);
+         int k = input.nextInt();
+-        newHeapSelect(array, k - 1);
+-    }*/
++        HeapSelect(array, k - 1);
++    }
+ 
+     /**
+      * Splits the input line in all the different values
+@@ -54,10 +55,10 @@
+         ArrayList<Pair> h2 = new ArrayList<>(k+1);
+         h2.add(h1.get(0));
+ 
+-        Select(h1, h2, k, isMinHeap);
++        select(h1, h2, k, isMinHeap);
+     }
+ 
+-    private static int Select(ArrayList<Pair> h1, ArrayList<Pair> h2, int k, boolean isMinHeap) {
++    private static int select(ArrayList<Pair> h1, ArrayList<Pair> h2, int k, boolean isMinHeap) {
+         for(int i = 0; i < k; i++){
+             int root_position = h2.get(0).position;
+             int left = root_position * 2 + 1;
+@@ -79,13 +80,13 @@
+             int current_node = heap.size() - 1;
+             int parent_node = (current_node - 1) / 2;
+             if (isMinHeap)
+-                while (current_node > 0 && heap.get(parent_node).key > heap.get(current_node).key) {
++                while (current_node > 0 && heap.get(current_node).key < heap.get(parent_node).key) {
+                     Collections.swap(heap, parent_node, current_node);
+                     current_node = parent_node;
+                     parent_node = (current_node - 1) / 2 ;
+                 }
+             else
+-                while (current_node > 0 && heap.get(parent_node).key < heap.get(current_node).key) {
++                while (current_node > 0 && heap.get(current_node).key > heap.get(parent_node).key) {
+                     Collections.swap(heap, parent_node, current_node);
+                     current_node = parent_node;
+                     parent_node = (current_node - 1) / 2;
+Index: src/Excel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import org.apache.poi.EncryptedDocumentException;\r\nimport org.apache.poi.ss.usermodel.*;\r\n\r\nimport java.io.*;\r\nimport java.nio.file.Files;\r\nimport java.nio.file.Paths;\r\n\r\nimport static java.nio.file.StandardCopyOption.REPLACE_EXISTING;\r\n\r\npublic class Excel {\r\n    public static void main(String[] args) throws FileNotFoundException {\r\n        try {\r\n            String templateName = \"Time_Template.xlsx\";\r\n            String fileName = \"Time.xlsx\";\r\n\r\n            Files.copy(Paths.get(templateName), Paths.get(fileName), REPLACE_EXISTING);\r\n            //Initializing a new excel file and sheet in which data will be registered\r\n            FileInputStream inputStream = new FileInputStream(new File(fileName));\r\n\r\n            Workbook workbook = WorkbookFactory.create(inputStream);\r\n\r\n            //Fills the excel sheet\r\n            for (int i = 1; i < 50; i++) {\r\n                Sheet sheet = workbook.cloneSheet(0);\r\n                workbook.setSheetName(i, String.valueOf((int)(Math.pow(1.25, i)*10)));\r\n            }\r\n            //terminates after filling the sheet with 100 time execution's observations for each algorithm\r\n\r\n            inputStream.close();\r\n\r\n            //saves the excel file created before\r\n            FileOutputStream outputStream = new FileOutputStream(fileName);\r\n            workbook.write(outputStream);\r\n            workbook.close();\r\n            outputStream.close();\r\n        } catch (IOException | EncryptedDocumentException ex) {\r\n            ex.printStackTrace();\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Excel.java	(revision a42a1bc3812f71e2b2857a5979a0351d3f84f834)
++++ src/Excel.java	(date 1589200967320)
+@@ -1,12 +1,10 @@
+ import org.apache.poi.EncryptedDocumentException;
+ import org.apache.poi.ss.usermodel.*;
+-
++import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+ import java.io.*;
+ import java.nio.file.Files;
+ import java.nio.file.Paths;
+ 
+-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+-
+ public class Excel {
+     public static void main(String[] args) throws FileNotFoundException {
+         try {

@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 class Pair {
     Integer position;
@@ -15,15 +16,15 @@ class Pair {
     }
 }
 
-public class HeapSelect {/*
+public class HeapSelect {
     public static void main(String[] args) {
         System.out.print("Enter an array of integers: ");
         Scanner input = new Scanner(System.in);
         String inVector =  input.nextLine();
         int[] array = getInputVector(inVector);
         int k = input.nextInt();
-        newHeapSelect(array, k - 1);
-    }*/
+        System.out.println(HeapSelect(array, k - 1));
+    }
 
     /**
      * Splits the input line in all the different values
@@ -45,7 +46,7 @@ public class HeapSelect {/*
      * @param array the input array, REQUIRED as a valid input
      * @param k the index (from 1 to array size) REQUIRED as a valid index
      */
-    public static void HeapSelect(int[] array, int k) {
+    public static int HeapSelect(int[] array, int k) {
         int h1_size = array.length;
         boolean isMinHeap = false;
         if(k < h1_size / 2)
@@ -63,7 +64,7 @@ public class HeapSelect {/*
         ArrayList<Pair> h2 = new ArrayList<>(k+1);
         h2.add(h1.get(0));
 
-        Select(h1, h2, k, isMinHeap);
+        return select(h1, h2, k, isMinHeap);
     }
 
 
@@ -75,7 +76,7 @@ public class HeapSelect {/*
      * @param isMinHeap true if the heap is a minHeap, false if is a maxHeap
      * @return the key of the root node from the auxiliary heap
      */
-    private static int Select(ArrayList<Pair> h1, ArrayList<Pair> h2, int k, boolean isMinHeap) {
+    private static int select(ArrayList<Pair> h1, ArrayList<Pair> h2, int k, boolean isMinHeap) {
         for(int i = 0; i < k; i++){
             int root_position = h2.get(0).position;
             int left = root_position * 2 + 1;
@@ -104,13 +105,13 @@ public class HeapSelect {/*
             int current_node = heap.size() - 1;
             int parent_node = (current_node - 1) / 2;
             if (isMinHeap)
-                while (current_node > 0 && heap.get(parent_node).key > heap.get(current_node).key) {
+                while (current_node > 0 && heap.get(current_node).key < heap.get(parent_node).key) {
                     Collections.swap(heap, parent_node, current_node);
                     current_node = parent_node;
                     parent_node = (current_node - 1) / 2 ;
                 }
             else
-                while (current_node > 0 && heap.get(parent_node).key < heap.get(current_node).key) {
+                while (current_node > 0 && heap.get(current_node).key > heap.get(parent_node).key) {
                     Collections.swap(heap, parent_node, current_node);
                     current_node = parent_node;
                     parent_node = (current_node - 1) / 2;

@@ -66,6 +66,17 @@ ggplot(data = medians, aes(x = array_length, y = ex_time, color = algorithm)) +
   theme(legend.position = c(.10, .90), legend.background = element_rect(fill = "transparent"), legend.title=element_blank())
   ggsave("Grafici/Confronto_Mediane.png")
 ```
+```{r}
+ggplot(data = medians, aes(x = array_length, y = ex_time, color = algorithm)) +
+  geom_point() +
+  geom_line() +
+  stat_smooth(method="gam") +
+  labs(y = "Execution time") +
+  scale_x_log10() +
+  scale_y_log10() +
+  theme(legend.position = c(.10, .90), legend.background = element_rect(fill = "transparent"), legend.title=element_blank())
+  ggsave("Grafici/Confronto_Mediane_log.png")
+```
 
 ```{r}
 ggplot(data = quick, aes(x = array_length, y = ex_time, color = algorithm)) +

@@ -1,11 +1,9 @@
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.*;
-
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class Excel {
     public static void main(String[] args) throws FileNotFoundException {
