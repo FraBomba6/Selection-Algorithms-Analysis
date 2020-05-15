@@ -18,9 +18,9 @@ public class Excel {
             Workbook workbook = WorkbookFactory.create(inputStream);
 
             //Fills the excel sheet
-            for (int i = 1; i < 50; i++) {
+            for (int i = 1; i < 100; i++) {
                 Sheet sheet = workbook.cloneSheet(0);
-                workbook.setSheetName(i, String.valueOf((int)(Math.pow(1.25, i)*10)));
+                workbook.setSheetName(i, String.valueOf((int)(Math.pow(1.116, i)*100)));
             }
             //terminates after filling the sheet with 100 time execution's observations for each algorithm
 
