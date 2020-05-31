@@ -10,4 +10,8 @@ Per una corretta visualizzazione del contenuto della repo sono necessari alcuni 
 * SDK Java
 * Excel, o equivalente
 
-###
+### Struttura della repo
+Le cartelle e i file di diretto interesse per visionare il progetto sono:
+* src - in cui sono contenuti tutti i file .java riguardanti gli algortimi di selezione, la gestione della raccolta dati su file .xlsx, la generazione degli input e altre utility
+* R - che raccoglie le elaborazioni in R dei grafici costruiti a partire dai dati raccolti e gli stessi grafici
+* Time.xlsx - file utilizzato per raccogliere e generare statistiche preliminari sui dati temporali degli algoritmi di selezione
