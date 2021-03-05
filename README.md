@@ -25,5 +25,5 @@ The source code in Time.java, particularly the lines for warming up the JVM, wer
 ### Final report notes
 * Final report is written in Italian;
 * Excel.java and Count.java are not analyzed in the report. Their implementation is marginal with respect to the objectives of the project, their scope is to provide a more user friendly experience in data evaluation. In particular:
-* * Excel.java - utilities to automatically build Time.xlsx;
-* * Count.java - simple utility to count the number of integers in a provided sequence of numbers.
+  * Excel.java - utilities to automatically build Time.xlsx;
+  * Count.java - simple utility to count the number of integers in a provided sequence of numbers.
