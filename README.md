@@ -1,27 +1,29 @@
-# ASD_Project
-## Progetto di laboratorio del primo semestre del corso "Algoritmi e strutture dati" A.A. 2019-2020
-Questa repo di GitHub raccoglie il lavoro svolto da Francesco Bombassei De Bona e Andrea Cantarutti per la realizzazione del primo progetto di laboratorio assegnato alla fine del primo semestre del corso "Algotimi e strutture dati".
+# Selection Algorithms Analysis
+## Algorithms and data structures course project A.Y. 2019-2020
+This repo collects the work done by Francesco Bombassei De Bona and Andrea Cantarutti for the realization of the first laboratory assignment during Algorithms and data structures course at Università degli Studi di Udine.
+The project aims to compare execution times of some of the most famous selection algorithms, directly "on the field". During the project a robust timing mechanism was implemented and a pseudo-random generator based on Mersenne Twister was used for generating "good" random numbers.
 
-### Prerequisiti
-Per una corretta visualizzazione del contenuto della repo sono necessari alcuni software:
+### Technical prerequisites
+Following software is mandatory for the correct visualization of the work:
 * R
 * RStudio
 * IDE Java
 * SDK Java
-* Excel, o equivalente
+* Excel, or equivalent
 
-### Struttura della repo
-Le cartelle e i file di diretto interesse per visionare il progetto sono:
-* src - in cui sono contenuti tutti i file .java riguardanti gli algortimi di selezione, la gestione della raccolta dati su file .xlsx, la generazione degli input e altre utility
-* R - che raccoglie le elaborazioni in R dei grafici costruiti a partire dai dati raccolti e gli stessi grafici
-* Time.xlsx - file utilizzato per raccogliere e generare statistiche preliminari sui dati temporali degli algoritmi di selezione
-* Time_Template.xlsx - foglio di lavoro utilizzato come template per generare tutti i fogli contenuti nel workbook Time.xlsx
-Le restanti cartelle e file sono superflui, perché generati dall'IDE e da Git
+### Repository structure
+Relevant folders and files are:
+* src - contains all .java source script regarding selection algorithms, collected data management (using a .xlsx file), input generation and other utilities
+* R - contains data elaboration in R language and some plotted graphs
+* Time.xlsx - file used to collect data and generate preliminary statistics
+* Time_Template.xlsx - template to generate all the worksheets in the workbook Time.xlsx
+All the other directories and files are irrelevant and just structural
 
-### Precauzioni sull'utilizzo della classe Time.java
-Il codice da noi elaborato in Time.java, in particolare i meccanismi di Warmup della JVM, sono stati adattatiper un'esecuzione efficiente sull'hardware a nostra disposizione e quindi possono fornire prestazioni differenti se eseguiti su macchine a prestazioni differenti
+### Precautions in using the class Time.java
+The source code in Time.java, particularly the lines for warming up the JVM, were adapted for the available hardware and software settings. This may lead to different performance in other systems.
 
-### Classi non trattate nella relazione
-Le classi Excel.java e Count.java non vengono analizzate in modo approfondito nella relazione complementare a questa repo, questo perché le loro funzionalità non sono necessarie alla risoluzione dei problemi proposti dall'insegnante, ma del tutto accessorie alla realizzazione pratica di un progetto maggiormente user friendly. In particolare:
-* Excel.java - serve a strutturare in modo automatico il file Time.xlsx
-* Count.java - semplice utility per contare il numero di interi in una sequenza di numeri fornita a riga di comando
+### Final report notes
+* Final report is written in Italian;
+* Excel.java and Count.java are not analyzed in the report. Their implementation is marginal with respect to the objectives of the project, their scope is to provide a more user friendly experience in data evaluation. In particular:
+** Excel.java - utilities to automatically build Time.xlsx;
+** Count.java - simple utility to count the number of integers in a provided sequence of numbers.
